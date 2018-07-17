@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/niktekusho/open-dictionary.svg?branch=master)](https://travis-ci.org/niktekusho/open-dictionary)
+
 # Open Dictionary
 
 Open Dictionary consists of a set of services that you use to serve dictionary entries in an open source manner.
