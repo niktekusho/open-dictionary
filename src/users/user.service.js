@@ -13,10 +13,10 @@ function createUserService({userRepository, errorHandler}) {
 			}
 			return users;
 		},
-		getUser: async id => {
+		getUser: async ({id}) => {
 			let user;
 			try {
-				user = await userRepository.find(id);
+				user = await userRepository.find({id});
 			} catch (err) {
 				return errorHandler(err, 'User retrieval failed');
 			}
@@ -24,14 +24,20 @@ function createUserService({userRepository, errorHandler}) {
 		},
 		createUser: async ({
 			name,
+			email,
 			passwordHash,
 			nativeLanguage,
 			role = UserRole.readonly
 		}) => {
 			let newUser;
 			try {
+				const existingUser = await userRepository.find({email});
+				if (existingUser !== null && existingUser !== undefined) {
+					// TODO
+					return errorHandler(null, `User creation failed. Email ${email} already in the system.`);
+				}
 				newUser = await userRepository.create({
-					name, passwordHash, nativeLanguage, role
+					name, email, passwordHash, nativeLanguage, role
 				});
 			} catch (err) {
 				return errorHandler(err, 'User creation failed');
