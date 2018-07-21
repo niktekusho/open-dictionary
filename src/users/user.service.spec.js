@@ -163,10 +163,8 @@ describe('create user test suite', () => {
 			nativeLanguage: 'en-US',
 			role: 1
 		};
-		expect(users).toHaveLength(0);
 		const expectedUser = Object.assign({}, user, {id: 1});
 		await expect(userService.createUser(user)).resolves.toStrictEqual(expectedUser);
-		expect(users).toHaveLength(1);
 		expect(userRepository.create).toHaveBeenCalledTimes(1);
 		expect(userRepository.create).toHaveBeenCalledWith(user);
 		expect(errorHandler).toHaveBeenCalledTimes(0);
@@ -186,9 +184,7 @@ describe('create user test suite', () => {
 			nativeLanguage: 'en-US',
 			role: 1
 		};
-		expect(users).toHaveLength(0);
 		await expect(userService.createUser(user)).resolves.toBeUndefined();
-		expect(users).toHaveLength(0);
 		expect(userRepository.create).toHaveBeenCalledTimes(1);
 		expect(userRepository.create).toHaveBeenCalledWith(user);
 		expect(errorHandler).toHaveBeenCalledTimes(1);
@@ -209,9 +205,7 @@ describe('create user test suite', () => {
 			nativeLanguage: 'en-US',
 			role: 1
 		};
-		expect(users).toHaveLength(0);
 		await expect(userService.createUser(user)).resolves.toBeUndefined();
-		expect(users).toHaveLength(0);
 		expect(userRepository.create).toHaveBeenCalledTimes(1);
 		expect(userRepository.create).toHaveBeenCalledWith(user);
 		expect(errorHandler).toHaveBeenCalledTimes(1);
