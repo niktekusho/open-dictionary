@@ -16,10 +16,6 @@ const readonlyUser = {
 	role: 5
 };
 
-process.on('unhandledRejection', reason => {
-	console.log('REJECTION', reason);
-});
-
 const someUsers = [
 	adminUser,
 	readonlyUser
