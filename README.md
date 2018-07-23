@@ -57,3 +57,20 @@ or with npm:
 ```sh
 npm run lint
 ```
+
+# Docker setup
+
+## User service
+
+The user service default repository connects to a mongodb server. Without touching the config file or setting custom environment variables, the local instance of the mongo that the service will try to connect to is at localhost:27000.
+In a dev environment you can create a container using the following command:
+```sh
+docker run -p 27000:27017 --name users-db -d mongo:4.0.0
+```
+
+Here's a brief explanation of the command above:
+-  `-p 27000:27017`: the Docker Engine will map the port used by the default mongodb configuration (`27017`) to the local machine network at port `27000`. With this flag the mongodb instance will be available for tools using the address `mongodb://localhost:27000`.
+-  `--name users-db`: the Docker Engine will create the container with the name "users-db" (so random generated names won't be used). This flag allow us to start the container when we will need it using the command: `docker start users-db`.
+-  `-d`: the Docker Engine will create the container and start it in the background.
+-  `mongodb:4.0.0`: the image we will use is the mongodb one tagged with a specific version (`4.0.0`).
+
