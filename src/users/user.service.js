@@ -44,16 +44,16 @@ function createUserService({userRepository, errorHandler}) {
 			}
 			return newUser;
 		},
-		updateUser: async ({name, email, passwordHash, nativeLanguage, role}) => {
+		updateUser: async (id, {name, email, passwordHash, nativeLanguage, role}) => {
 			let updatedUser;
 			try {
-				const existingUser = await userRepository.find({email});
+				const existingUser = await userRepository.find(id);
 				if (existingUser === null || existingUser === undefined) {
 					// TODO
-					return errorHandler(null, `User update failed. User with email ${email} not found in the system.`);
+					return errorHandler(null, `User update failed. User with id ${id} not found in the system.`);
 				}
-				updatedUser = await userRepository.update(email, {
-					email, name, passwordHash, nativeLanguage, role
+				updatedUser = await userRepository.update(id, {
+					id, email, name, passwordHash, nativeLanguage, role
 				});
 			} catch (err) {
 				return errorHandler(err, 'User update failed');
@@ -63,7 +63,12 @@ function createUserService({userRepository, errorHandler}) {
 		deleteUser: async ({id}) => {
 			let deleteResponse;
 			try {
-				deleteResponse = await userRepository.delete(id);
+				const existingUser = await userRepository.find({id});
+				if (existingUser === null || existingUser === undefined) {
+					// TODO
+					return errorHandler(null, `User delete failed. User with id ${id} not found in the system.`);
+				}
+				deleteResponse = await userRepository.delete({id});
 			} catch (err) {
 				return errorHandler(err, 'User delete failed');
 			}
