@@ -25,7 +25,7 @@ const userRepository = {};
 let userService;
 let errorHandler;
 
-describe('get all users test suite', () => {
+describe('Get Users test suite', () => {
 	beforeEach(() => {
 		errorHandler = jest.fn();
 	});
@@ -72,7 +72,7 @@ describe('get all users test suite', () => {
 	});
 });
 
-describe('get single user test suite', () => {
+describe('Get User test suite', () => {
 	async function mockFindImpl({id}) {
 		return someUsers.filter(user => user.id === id);
 	}
@@ -132,7 +132,7 @@ describe('get single user test suite', () => {
 	});
 });
 
-describe('create user test suite', () => {
+describe('Create User test suite', () => {
 	let users = [];
 
 	async function mockCreateImpl(user) {
@@ -196,6 +196,58 @@ describe('create user test suite', () => {
 		userRepository.create = jest.fn(() => {
 			throw err;
 		});
+		userRepository.find = jest.fn(async user => user);
+		userService = userServiceFactory({
+			userRepository, errorHandler
+		});
+		const user = {
+			email: 'test',
+			name: 'test',
+			passwordHash: 'dsafsamfdsmfòds',
+			nativeLanguage: 'en-US',
+			role: 1
+		};
+		await expect(userService.createUser(user)).resolves.toBeUndefined();
+		expect(userRepository.create).toHaveBeenCalledTimes(0);
+		expect(errorHandler).toHaveBeenCalledTimes(1);
+		expect(errorHandler).toHaveBeenCalledWith(null, `User creation failed. Email ${user.email} already in the system.`);
+	});
+});
+
+describe('Update User test suite', () => {
+	beforeEach(() => {
+		errorHandler = jest.fn();
+	});
+
+	afterEach(() => {
+		jest.resetAllMocks();
+	});
+
+	it('updateUser success', async () => {
+		userRepository.update = jest.fn(async (email, user) => user);
+		userRepository.find = jest.fn(async user => user);
+		userService = userServiceFactory({
+			userRepository, errorHandler
+		});
+		const user = {
+			email: 'test',
+			name: 'test',
+			passwordHash: 'dsafsamfdsmfòds',
+			nativeLanguage: 'en-US',
+			role: 1
+		};
+		await expect(userService.updateUser(user)).resolves.toStrictEqual(user);
+		expect(userRepository.update).toHaveBeenCalledTimes(1);
+		expect(userRepository.update).toHaveBeenCalledWith(user.email, user);
+		expect(errorHandler).toHaveBeenCalledTimes(0);
+	});
+
+	it('updateUser with repository failing', async () => {
+		const err = new Error('Test');
+		userRepository.update = jest.fn(() => {
+			throw err;
+		});
+		userRepository.find = jest.fn(async user => user);
 		userService = userServiceFactory({
 			userRepository, errorHandler
 		});
@@ -205,10 +257,27 @@ describe('create user test suite', () => {
 			nativeLanguage: 'en-US',
 			role: 1
 		};
-		await expect(userService.createUser(user)).resolves.toBeUndefined();
-		expect(userRepository.create).toHaveBeenCalledTimes(1);
-		expect(userRepository.create).toHaveBeenCalledWith(user);
+		await expect(userService.updateUser(user)).resolves.toBeUndefined();
+		expect(userRepository.update).toHaveBeenCalledTimes(1);
 		expect(errorHandler).toHaveBeenCalledTimes(1);
-		expect(errorHandler).toHaveBeenCalledWith(err, 'User creation failed');
+		expect(errorHandler).toHaveBeenCalledWith(err, 'User update failed');
+	});
+
+	it('updateUser user not found', async () => {
+		userRepository.find = jest.fn(async () => undefined);
+		userService = userServiceFactory({
+			userRepository, errorHandler
+		});
+		const user = {
+			name: 'test',
+			email: 'test',
+			passwordHash: 'dsafsamfdsmfòds',
+			nativeLanguage: 'en-US',
+			role: 1
+		};
+		await expect(userService.updateUser(user)).resolves.toBeUndefined();
+		expect(userRepository.update).toHaveBeenCalledTimes(0);
+		expect(errorHandler).toHaveBeenCalledTimes(1);
+		expect(errorHandler).toHaveBeenCalledWith(null, `User update failed. User with email ${user.email} not found in the system.`);
 	});
 });

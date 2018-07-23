@@ -44,11 +44,16 @@ function createUserService({userRepository, errorHandler}) {
 			}
 			return newUser;
 		},
-		updateUser: async ({name, passwordHash, nativeLanguage, role}) => {
+		updateUser: async ({name, email, passwordHash, nativeLanguage, role}) => {
 			let updatedUser;
 			try {
-				updatedUser = await userRepository.update({
-					name, passwordHash, nativeLanguage, role
+				const existingUser = await userRepository.find({email});
+				if (existingUser === null || existingUser === undefined) {
+					// TODO
+					return errorHandler(null, `User update failed. User with email ${email} not found in the system.`);
+				}
+				updatedUser = await userRepository.update(email, {
+					email, name, passwordHash, nativeLanguage, role
 				});
 			} catch (err) {
 				return errorHandler(err, 'User update failed');
