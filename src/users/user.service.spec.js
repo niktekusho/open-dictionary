@@ -294,15 +294,15 @@ describe('Delete User test case', () => {
 		jest.resetAllMocks();
 	});
 
+	const user = {
+		id: 'dassd',
+		email: 'test',
+		name: 'test',
+		passwordHash: 'dsafsamfdsmfòds',
+		nativeLanguage: 'en-US',
+		role: 1
+	};
 	it('deleteUser success', async () => {
-		const user = {
-			id: 'dassd',
-			email: 'test',
-			name: 'test',
-			passwordHash: 'dsafsamfdsmfòds',
-			nativeLanguage: 'en-US',
-			role: 1
-		};
 		userRepository.delete = jest.fn(async () => true);
 		userRepository.find = jest.fn(async () => user);
 		userService = userServiceFactory({
@@ -312,5 +312,34 @@ describe('Delete User test case', () => {
 		expect(userRepository.delete).toHaveBeenCalledTimes(1);
 		expect(userRepository.delete).toHaveBeenCalledWith({id: user.id});
 		expect(errorHandler).toHaveBeenCalledTimes(0);
+	});
+
+	it('deleteUser id not found', async () => {
+		userRepository.delete = jest.fn(async () => true);
+		userRepository.find = jest.fn(async () => undefined);
+		userService = userServiceFactory({
+			userRepository, errorHandler
+		});
+		await expect(userService.deleteUser(user)).resolves.toBeUndefined();
+		expect(userRepository.delete).toHaveBeenCalledTimes(0);
+		expect(userRepository.find).toHaveBeenCalledWith({id: user.id});
+		expect(errorHandler).toHaveBeenCalledWith(null, `User delete failed. User with id ${user.id} not found in the system.`);
+		expect(errorHandler).toHaveBeenCalledTimes(1);
+	});
+
+	it('deleteUser user repository fails', async () => {
+		const err = new Error('test');
+		userRepository.delete = jest.fn(async () => {
+			throw err;
+		});
+		userRepository.find = jest.fn(async () => user);
+		userService = userServiceFactory({
+			userRepository, errorHandler
+		});
+		await expect(userService.deleteUser(user)).resolves.toBeUndefined();
+		expect(userRepository.delete).toHaveBeenCalledTimes(1);
+		expect(userRepository.find).toHaveBeenCalledWith({id: user.id});
+		expect(errorHandler).toHaveBeenCalledWith(err, 'User delete failed');
+		expect(errorHandler).toHaveBeenCalledTimes(1);
 	});
 });
