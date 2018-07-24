@@ -151,7 +151,7 @@ describe('Create User test suite', () => {
 	});
 
 	it('createUser success', async () => {
-		userRepository.create = jest.fn(mockCreateImpl);
+		userRepository.insert = jest.fn(mockCreateImpl);
 		userRepository.find = jest.fn();
 		userService = userServiceFactory({
 			userRepository, errorHandler
@@ -165,14 +165,14 @@ describe('Create User test suite', () => {
 		};
 		const expectedUser = Object.assign({}, user, {id: 1});
 		await expect(userService.createUser(user)).resolves.toStrictEqual(expectedUser);
-		expect(userRepository.create).toHaveBeenCalledTimes(1);
-		expect(userRepository.create).toHaveBeenCalledWith(user);
+		expect(userRepository.insert).toHaveBeenCalledTimes(1);
+		expect(userRepository.insert).toHaveBeenCalledWith(user);
 		expect(errorHandler).toHaveBeenCalledTimes(0);
 	});
 
 	it('createUser with repository failing', async () => {
 		const err = new Error('Test');
-		userRepository.create = jest.fn(() => {
+		userRepository.insert = jest.fn(() => {
 			throw err;
 		});
 		userService = userServiceFactory({
@@ -185,15 +185,15 @@ describe('Create User test suite', () => {
 			role: 1
 		};
 		await expect(userService.createUser(user)).resolves.toBeUndefined();
-		expect(userRepository.create).toHaveBeenCalledTimes(1);
-		expect(userRepository.create).toHaveBeenCalledWith(user);
+		expect(userRepository.insert).toHaveBeenCalledTimes(1);
+		expect(userRepository.insert).toHaveBeenCalledWith(user);
 		expect(errorHandler).toHaveBeenCalledTimes(1);
 		expect(errorHandler).toHaveBeenCalledWith(err, 'User creation failed');
 	});
 
 	it('createUser duplicate user', async () => {
 		const err = new Error('Test');
-		userRepository.create = jest.fn(() => {
+		userRepository.insert = jest.fn(() => {
 			throw err;
 		});
 		userRepository.find = jest.fn(async user => user);
@@ -208,7 +208,7 @@ describe('Create User test suite', () => {
 			role: 1
 		};
 		await expect(userService.createUser(user)).resolves.toBeUndefined();
-		expect(userRepository.create).toHaveBeenCalledTimes(0);
+		expect(userRepository.insert).toHaveBeenCalledTimes(0);
 		expect(errorHandler).toHaveBeenCalledTimes(1);
 		expect(errorHandler).toHaveBeenCalledWith(null, `User creation failed. Email ${user.email} already in the system.`);
 	});

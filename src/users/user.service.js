@@ -36,7 +36,7 @@ function createUserService({userRepository, errorHandler}) {
 					// TODO
 					return errorHandler(null, `User creation failed. Email ${email} already in the system.`);
 				}
-				newUser = await userRepository.create({
+				newUser = await userRepository.insert({
 					name, email, passwordHash, nativeLanguage, role
 				});
 			} catch (err) {
