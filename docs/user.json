@@ -1,0 +1,39 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema",
+	"type": "object",
+	"properties": {
+		"id": {
+			"type": "string"
+		},
+		"name": {
+			"type": "string"
+		},
+		"email": {
+			"type": "string"
+		},
+		"nativeLanguage": {
+			"type": "string"
+		},
+		"languages": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
+		"roles": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"enum": ["admin", "dictionaryCreator", "dictionaryEditor", "reviewer", "readonly"]
+			}
+		},
+		"metadata": {
+			"type": "object",
+			"properties": {
+				"creationDate": {
+					"type": "object"
+				}
+			}
+		}
+	}
+}
