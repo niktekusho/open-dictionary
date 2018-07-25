@@ -4,11 +4,11 @@ node_js:
   - "10"
 cache: yarn
 matrix:
-	include:
-	- os: linux
-	  dist: xenial
-	  sudo: false
-	- os: linux
-	  dist: trusty
-	  sudo: false
-	- os: osx
+  include:
+  - os: linux
+    dist: xenial
+    sudo: false
+  - os: linux
+    dist: trusty
+    sudo: false
+  - os: osx
