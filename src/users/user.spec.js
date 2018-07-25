@@ -13,12 +13,12 @@ describe('User module test suite', () => {
 
 		function updatePropertyToUserRole() {
 			'use strict';
-			user.UserRole.reviewer = 'test';
+			user.UserRole.REVIEWER = 'test';
 		}
 
 		function removePropertyToUserRole() {
 			'use strict';
-			delete user.UserRole.reviewer;
+			delete user.UserRole.REVIEWER;
 		}
 
 		it('UserRole should be an immutable object', () => {

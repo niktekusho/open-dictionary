@@ -9,7 +9,8 @@
 			"type": "string"
 		},
 		"email": {
-			"type": "string"
+			"type": "string",
+			"format": "email"
 		},
 		"nativeLanguage": {
 			"type": "string"
@@ -24,16 +25,27 @@
 			"type": "array",
 			"items": {
 				"type": "string",
-				"enum": ["admin", "dictionaryCreator", "dictionaryEditor", "reviewer", "readonly"]
+				"enum": ["ADMIN", "WRITER", "REVIEWER", "READONLY"]
 			}
 		},
 		"metadata": {
 			"type": "object",
 			"properties": {
 				"creationDate": {
-					"type": "object"
+					"type": "string",
+					"format": "date-time"
+				},
+				"lastAccess": {
+					"type": "object",
+					"format": "date-time"
 				}
 			}
 		}
-	}
+	},
+	"required":[
+		"id",
+		"name",
+		"email",
+		"roles"
+	]
 }
