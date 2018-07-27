@@ -75,3 +75,9 @@ Here's a brief explanation of the command above:
 -  `-d`: the Docker Engine will create the container and start it in the background.
 -  `mongodb:4.0.0`: the image we will use is the mongodb one tagged with a specific version (`4.0.0`).
 
+In order to connect to the created db using mongo cli you can use the following command:
+
+```sh
+docker run -it --link users-db:mongo --rm mongo:4.0.0 mongo --host mongo users
+```
+
