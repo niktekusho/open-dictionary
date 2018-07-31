@@ -3,12 +3,11 @@ const repositoryFactory = require('./user.repository');
 describe('User Repository test suite', () => {
 	// Mongodb mocks
 	let findMock = jest.fn();
-	let findOneMock = jest.fn();
 
 	const createCollection = jest.fn(() => {
 		return {
-			find: findMock,
-			findOne: findOneMock
+			createIndex: jest.fn(),
+			find: findMock
 		};
 	});
 
@@ -61,7 +60,6 @@ describe('User Repository test suite', () => {
 
 	describe('User repository \'find\' test suite', () => {
 		afterEach(() => {
-			findOneMock.mockReset();
 			findMock.mockReset();
 		});
 
@@ -76,29 +74,11 @@ describe('User Repository test suite', () => {
 			await expect(repository.find()).resolves.toEqual(fakeData);
 			expect(findMock).toHaveBeenCalledTimes(1);
 			expect(findMock).toHaveBeenCalledWith({});
-			expect(findOneMock).toHaveBeenCalledTimes(0);
 		});
 
-		it('\'find\' called with id should return specific user (assuming that the user exists)', async () => {
-			const fakeData = {};
-			findOneMock = findOneMock.mockImplementationOnce(() => {
-				return {
-					toArray: () => fakeData
-				};
-			});
-			const repository = await repositoryFactory(mongodb, connectionParams, logger);
-			const findQuery = {
-				id: 'someid'
-			};
-			await expect(repository.find(findQuery)).resolves.toEqual(fakeData);
-			expect(findOneMock).toHaveBeenCalledTimes(1);
-			expect(findOneMock).toHaveBeenCalledWith(findQuery);
-			expect(findMock).toHaveBeenCalledTimes(0);
-		});
-
-		it('\'find\' called with id should return undefined if user does not exists', async () => {
+		it('\'find\' called with id should return undefined if user does not exist', async () => {
 			const fakeData = [];
-			findOneMock = findOneMock.mockImplementationOnce(() => {
+			findMock = findMock.mockImplementationOnce(() => {
 				return {
 					toArray: () => fakeData
 				};
@@ -108,9 +88,38 @@ describe('User Repository test suite', () => {
 				id: 'someid'
 			};
 			await expect(repository.find(findQuery)).resolves.toBeUndefined();
-			expect(findOneMock).toHaveBeenCalledTimes(1);
-			expect(findOneMock).toHaveBeenCalledWith(findQuery);
-			expect(findMock).toHaveBeenCalledTimes(0);
+			expect(findMock).toHaveBeenCalledTimes(1);
+			expect(findMock).toHaveBeenCalledWith(findQuery);
+		});
+
+		it('\'find\' called without id should return undefined if no users exist', async () => {
+			const fakeData = [];
+			findMock = findMock.mockImplementationOnce(() => {
+				return {
+					toArray: () => fakeData
+				};
+			});
+			const repository = await repositoryFactory(mongodb, connectionParams, logger);
+			await expect(repository.find()).resolves.toBeUndefined();
+			expect(findMock).toHaveBeenCalledTimes(1);
+			expect(findMock).toHaveBeenCalledWith({});
+		});
+
+		it('\'find\' called with a query object should return users based on the query result', async () => {
+			const fakeData = [{}, {}];
+			findMock = findMock.mockImplementationOnce(() => {
+				return {
+					toArray: () => fakeData
+				};
+			});
+			const repository = await repositoryFactory(mongodb, connectionParams, logger);
+			const findQuery = {
+				email: 'dsa',
+				name: 'aaa'
+			};
+			await expect(repository.find(findQuery)).resolves.toBeDefined();
+			expect(findMock).toHaveBeenCalledTimes(1);
+			expect(findMock).toHaveBeenCalledWith(findQuery);
 		});
 	});
 });

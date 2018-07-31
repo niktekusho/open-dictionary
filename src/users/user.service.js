@@ -27,7 +27,7 @@ function createUserService({userRepository, errorHandler}) {
 			email,
 			passwordHash,
 			nativeLanguage,
-			role = UserRole.readonly
+			roles = [UserRole.READER]
 		}) => {
 			let newUser;
 			try {
@@ -37,14 +37,14 @@ function createUserService({userRepository, errorHandler}) {
 					return errorHandler(null, `User creation failed. Email ${email} already in the system.`);
 				}
 				newUser = await userRepository.insert({
-					name, email, passwordHash, nativeLanguage, role
+					name, email, passwordHash, nativeLanguage, roles
 				});
 			} catch (err) {
 				return errorHandler(err, 'User creation failed');
 			}
 			return newUser;
 		},
-		updateUser: async (id, {name, email, passwordHash, nativeLanguage, role}) => {
+		updateUser: async (id, {name, email, passwordHash, nativeLanguage, roles}) => {
 			let updatedUser;
 			try {
 				const existingUser = await userRepository.find(id);
@@ -53,7 +53,7 @@ function createUserService({userRepository, errorHandler}) {
 					return errorHandler(null, `User update failed. User with id ${id} not found in the system.`);
 				}
 				updatedUser = await userRepository.update(id, {
-					id, email, name, passwordHash, nativeLanguage, role
+					id, email, name, passwordHash, nativeLanguage, roles
 				});
 			} catch (err) {
 				return errorHandler(err, 'User update failed');

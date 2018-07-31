@@ -1,4 +1,4 @@
-const UserRole = Object.freeze({ADMIN: 1, WRITER: 2, REVIEWER: 3, READONLY: 4});
+const UserRole = Object.freeze({ADMIN: 'ADMIN', WRITER: 'WRITER', REVIEWER: 'REVIEWER', READER: 'READER'});
 
 module.exports = {
 	UserRole

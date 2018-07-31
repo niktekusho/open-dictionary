@@ -5,7 +5,7 @@ const adminUser = {
 	user: 'user',
 	passwordHash: 'ssdassfdafds',
 	nativeLanguage: 'en-US',
-	role: 1
+	roles: [1]
 };
 
 const readonlyUser = {
@@ -13,7 +13,7 @@ const readonlyUser = {
 	user: 'user',
 	passwordHash: 'ssdassfdafds',
 	nativeLanguage: 'it-IT',
-	role: 5
+	roles: [4]
 };
 
 const someUsers = [
@@ -161,7 +161,7 @@ describe('Create User test suite', () => {
 			name: 'test',
 			passwordHash: 'dsafsamfdsmfòds',
 			nativeLanguage: 'en-US',
-			role: 1
+			roles: 1
 		};
 		const expectedUser = Object.assign({}, user, {id: 1});
 		await expect(userService.createUser(user)).resolves.toStrictEqual(expectedUser);
@@ -182,7 +182,7 @@ describe('Create User test suite', () => {
 			name: 'test',
 			passwordHash: 'dsafsamfdsmfòds',
 			nativeLanguage: 'en-US',
-			role: 1
+			roles: 1
 		};
 		await expect(userService.createUser(user)).resolves.toBeUndefined();
 		expect(userRepository.insert).toHaveBeenCalledTimes(1);
@@ -205,7 +205,7 @@ describe('Create User test suite', () => {
 			name: 'test',
 			passwordHash: 'dsafsamfdsmfòds',
 			nativeLanguage: 'en-US',
-			role: 1
+			roles: 1
 		};
 		await expect(userService.createUser(user)).resolves.toBeUndefined();
 		expect(userRepository.insert).toHaveBeenCalledTimes(0);
@@ -230,7 +230,7 @@ describe('Update User test suite', () => {
 			name: 'test',
 			passwordHash: 'dsafsamfdsmfòds',
 			nativeLanguage: 'en-US',
-			role: 1
+			roles: [1]
 		};
 		userRepository.update = jest.fn(async (id, user) => user);
 		userRepository.find = jest.fn(async () => user);
@@ -257,7 +257,7 @@ describe('Update User test suite', () => {
 			name: 'test',
 			passwordHash: 'dsafsamfdsmfòds',
 			nativeLanguage: 'en-US',
-			role: 1
+			roles: [1]
 		};
 		await expect(userService.updateUser(user.id, user)).resolves.toBeUndefined();
 		expect(userRepository.update).toHaveBeenCalledTimes(1);
@@ -276,7 +276,7 @@ describe('Update User test suite', () => {
 			email: 'test',
 			passwordHash: 'dsafsamfdsmfòds',
 			nativeLanguage: 'en-US',
-			role: 1
+			roles: [1]
 		};
 		await expect(userService.updateUser(user.id, user)).resolves.toBeUndefined();
 		expect(userRepository.update).toHaveBeenCalledTimes(0);
@@ -300,7 +300,7 @@ describe('Delete User test case', () => {
 		name: 'test',
 		passwordHash: 'dsafsamfdsmfòds',
 		nativeLanguage: 'en-US',
-		role: 1
+		roles: [1]
 	};
 	it('deleteUser success', async () => {
 		userRepository.delete = jest.fn(async () => true);

@@ -18,12 +18,8 @@ async function repository(mongodb, {host, port, database}, logger) {
 		validator: {
 			$jsonSchema: {
 				bsonType: 'object',
-				required: ['id', 'name', 'email', 'roles'],
+				required: ['name', 'email', 'roles'],
 				properties: {
-					id: {
-						bsonType: 'string',
-						description: 'Required ID used for API query. Must be unique and required.'
-					},
 					name: {
 						bsonType: 'string'
 					},
@@ -40,7 +36,7 @@ async function repository(mongodb, {host, port, database}, logger) {
 						bsonType: 'array',
 						items: {
 							bsonType: 'string',
-							enum: ['ADMIN', 'WRITER', 'REVIEWER', 'READONLY']
+							enum: ['ADMIN', 'WRITER', 'REVIEWER', 'READER']
 						}
 					},
 					metadata: {
@@ -59,25 +55,32 @@ async function repository(mongodb, {host, port, database}, logger) {
 		}
 	});
 
+	try {
+		await collection.createIndex({email: 1}, {unique: true});
+	} catch (err) {
+		logger.error(err);
+	}
+
 	// Internal function for "unboxing" arrays: if the array is empty, this function returns undefined
 	function unboxArray(array) {
 		// Basic check
 		if (Array.isArray(array)) {
 			// If the array is empty return undefined
-			return array.length === 0 ? undefined : array;
+			switch (array.length) {
+				case 0: return undefined;
+				case 1: return array[0];
+				default: return array;
+			}
 		}
 		return array;
 	}
 
 	return {
-		find: async ({id} = {}) => {
-			logger.debug(id);
-			// Check for defined: if it is I am looking for a specific user
-			if (id) {
-				return unboxArray(collection.findOne({id}).toArray());
-			}
-			// If id not defined, return all users (TODO might need to remove a LOT of info when returning this)
-			return collection.find({}).toArray();
+		find: async (query = {}) => {
+			logger.debug(query);
+			const dbResponse = await collection.find(query).toArray();
+			logger.debug(dbResponse);
+			return unboxArray(dbResponse);
 		},
 		insert: async ({
 			name,
