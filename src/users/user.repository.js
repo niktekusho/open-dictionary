@@ -18,9 +18,12 @@ async function repository(mongodb, {host, port, database}, logger) {
 		validator: {
 			$jsonSchema: {
 				bsonType: 'object',
-				required: ['name', 'email', 'roles'],
+				required: ['username', 'email', 'roles'],
 				properties: {
-					name: {
+					username: {
+						bsonType: 'string'
+					},
+					fullname: {
 						bsonType: 'string'
 					},
 					email: {
@@ -55,8 +58,13 @@ async function repository(mongodb, {host, port, database}, logger) {
 		}
 	});
 
+	async function createIndexes(userCollection) {
+		await userCollection.createIndex({email: 1}, {unique: true});
+		await userCollection.createIndex({username: 1}, {unique: true});
+	}
+
 	try {
-		await collection.createIndex({email: 1}, {unique: true});
+		await createIndexes(collection);
 	} catch (err) {
 		logger.error(err);
 	}
@@ -83,20 +91,24 @@ async function repository(mongodb, {host, port, database}, logger) {
 			return unboxArray(dbResponse);
 		},
 		insert: async ({
-			name,
+			username,
+			fullname,
 			email,
 			passwordHash,
 			nativeLanguage,
 			roles
 		}) => {
 			// Usare insertOne
-			logger.log('TODO', {name,
+			logger.log('TODO', {
+				fullname,
+				username,
 				email,
 				passwordHash,
 				nativeLanguage,
 				roles});
 			return collection.insertOne({
-				name,
+				fullname,
+				username,
 				email,
 				passwordHash,
 				nativeLanguage,
@@ -106,13 +118,13 @@ async function repository(mongodb, {host, port, database}, logger) {
 				}
 			});
 		},
-		update: async (id, {
-			email, name, passwordHash, nativeLanguage, role
+		update: async (usernameToUpdate, {
+			email, fullname, username, passwordHash, nativeLanguage, role
 		}) => {
-			logger.log('TODO', {id, email, name, passwordHash, nativeLanguage, role});
+			logger.log('TODO', {username, email, fullname, passwordHash, nativeLanguage, role});
 		},
-		delete: async ({id}) => {
-			logger.log('TODO', id);
+		delete: async ({username}) => {
+			logger.log('TODO', username);
 		}
 	};
 }

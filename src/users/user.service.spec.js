@@ -1,16 +1,16 @@
 const userServiceFactory = require('./user.service');
 
 const adminUser = {
-	id: 'somerandomuserid',
-	user: 'user',
+	username: 'somerandomuserid',
+	fullname: 'user',
 	passwordHash: 'ssdassfdafds',
 	nativeLanguage: 'en-US',
 	roles: [1]
 };
 
 const readonlyUser = {
-	id: 'otherrandomuserid',
-	user: 'user',
+	username: 'otherrandomuserid',
+	fullname: 'user',
 	passwordHash: 'ssdassfdafds',
 	nativeLanguage: 'it-IT',
 	roles: [4]
@@ -73,8 +73,8 @@ describe('Get Users test suite', () => {
 });
 
 describe('Get User test suite', () => {
-	async function mockFindImpl({id}) {
-		return someUsers.filter(user => user.id === id);
+	async function mockFindImpl({username}) {
+		return someUsers.filter(user => user.username === username);
 	}
 
 	beforeEach(() => {
@@ -91,7 +91,7 @@ describe('Get User test suite', () => {
 			userRepository, errorHandler
 		});
 		const userId = {
-			id: 'somerandomuserid'
+			username: 'somerandomuserid'
 		};
 		await expect(userService.getUser(userId)).resolves.toStrictEqual([adminUser]);
 		expect(userRepository.find).toHaveBeenCalledTimes(1);
@@ -105,7 +105,7 @@ describe('Get User test suite', () => {
 			userRepository, errorHandler
 		});
 		const userId = {
-			id: 'arandomuserid'
+			username: 'arandomuserid'
 		};
 		await expect(userService.getUser(userId)).resolves.toStrictEqual([]);
 		expect(userRepository.find).toHaveBeenCalledTimes(1);
@@ -122,7 +122,7 @@ describe('Get User test suite', () => {
 			userRepository, errorHandler
 		});
 		const userId = {
-			id: 'somerandomuserid'
+			username: 'somerandomuserid'
 		};
 		await expect(userService.getUser(userId)).resolves.toBeUndefined();
 		expect(userRepository.find).toHaveBeenCalledTimes(1);
@@ -137,7 +137,7 @@ describe('Create User test suite', () => {
 
 	async function mockCreateImpl(user) {
 		const userId = users.push(user);
-		return Object.assign({}, user, {id: userId});
+		return Object.assign({}, user, {username: userId});
 	}
 
 	beforeEach(() => {
@@ -158,12 +158,13 @@ describe('Create User test suite', () => {
 		});
 		const user = {
 			email: 'test',
-			name: 'test',
+			username: 'test',
+			fullname: 'test',
 			passwordHash: 'dsafsamfdsmfòds',
 			nativeLanguage: 'en-US',
 			roles: 1
 		};
-		const expectedUser = Object.assign({}, user, {id: 1});
+		const expectedUser = Object.assign({}, user, {username: 1});
 		await expect(userService.createUser(user)).resolves.toStrictEqual(expectedUser);
 		expect(userRepository.insert).toHaveBeenCalledTimes(1);
 		expect(userRepository.insert).toHaveBeenCalledWith(user);
@@ -179,7 +180,8 @@ describe('Create User test suite', () => {
 			userRepository, errorHandler
 		});
 		const user = {
-			name: 'test',
+			username: 'test',
+			fullname: 'test',
 			passwordHash: 'dsafsamfdsmfòds',
 			nativeLanguage: 'en-US',
 			roles: 1
@@ -202,7 +204,8 @@ describe('Create User test suite', () => {
 		});
 		const user = {
 			email: 'test',
-			name: 'test',
+			username: 'test',
+			fullname: 'test',
 			passwordHash: 'dsafsamfdsmfòds',
 			nativeLanguage: 'en-US',
 			roles: 1
@@ -225,21 +228,21 @@ describe('Update User test suite', () => {
 
 	it('updateUser success', async () => {
 		const user = {
-			id: 'dassd',
+			username: 'dassd',
 			email: 'test',
-			name: 'test',
+			fullname: 'test',
 			passwordHash: 'dsafsamfdsmfòds',
 			nativeLanguage: 'en-US',
 			roles: [1]
 		};
-		userRepository.update = jest.fn(async (id, user) => user);
+		userRepository.update = jest.fn(async (username, user) => user);
 		userRepository.find = jest.fn(async () => user);
 		userService = userServiceFactory({
 			userRepository, errorHandler
 		});
-		await expect(userService.updateUser(user.id, user)).resolves.toStrictEqual(user);
+		await expect(userService.updateUser(user.username, user)).resolves.toStrictEqual(user);
 		expect(userRepository.update).toHaveBeenCalledTimes(1);
-		expect(userRepository.update).toHaveBeenCalledWith(user.id, user);
+		expect(userRepository.update).toHaveBeenCalledWith(user.username, user);
 		expect(errorHandler).toHaveBeenCalledTimes(0);
 	});
 
@@ -253,13 +256,13 @@ describe('Update User test suite', () => {
 			userRepository, errorHandler
 		});
 		const user = {
-			id: 'dassd',
-			name: 'test',
+			username: 'dassd',
+			fullname: 'test',
 			passwordHash: 'dsafsamfdsmfòds',
 			nativeLanguage: 'en-US',
 			roles: [1]
 		};
-		await expect(userService.updateUser(user.id, user)).resolves.toBeUndefined();
+		await expect(userService.updateUser(user.username, user)).resolves.toBeUndefined();
 		expect(userRepository.update).toHaveBeenCalledTimes(1);
 		expect(errorHandler).toHaveBeenCalledTimes(1);
 		expect(errorHandler).toHaveBeenCalledWith(err, 'User update failed');
@@ -271,17 +274,17 @@ describe('Update User test suite', () => {
 			userRepository, errorHandler
 		});
 		const user = {
-			id: 'dassd',
+			username: 'dassd',
 			name: 'test',
 			email: 'test',
 			passwordHash: 'dsafsamfdsmfòds',
 			nativeLanguage: 'en-US',
 			roles: [1]
 		};
-		await expect(userService.updateUser(user.id, user)).resolves.toBeUndefined();
+		await expect(userService.updateUser(user.username, user)).resolves.toBeUndefined();
 		expect(userRepository.update).toHaveBeenCalledTimes(0);
 		expect(errorHandler).toHaveBeenCalledTimes(1);
-		expect(errorHandler).toHaveBeenCalledWith(null, `User update failed. User with id ${user.id} not found in the system.`);
+		expect(errorHandler).toHaveBeenCalledWith(null, `User update failed. User with username ${user.username} not found in the system.`);
 	});
 });
 
@@ -295,7 +298,7 @@ describe('Delete User test case', () => {
 	});
 
 	const user = {
-		id: 'dassd',
+		username: 'dassd',
 		email: 'test',
 		name: 'test',
 		passwordHash: 'dsafsamfdsmfòds',
@@ -310,11 +313,11 @@ describe('Delete User test case', () => {
 		});
 		await expect(userService.deleteUser(user)).resolves.toStrictEqual(true);
 		expect(userRepository.delete).toHaveBeenCalledTimes(1);
-		expect(userRepository.delete).toHaveBeenCalledWith({id: user.id});
+		expect(userRepository.delete).toHaveBeenCalledWith({username: user.username});
 		expect(errorHandler).toHaveBeenCalledTimes(0);
 	});
 
-	it('deleteUser id not found', async () => {
+	it('deleteUser username not found', async () => {
 		userRepository.delete = jest.fn(async () => true);
 		userRepository.find = jest.fn(async () => undefined);
 		userService = userServiceFactory({
@@ -322,8 +325,8 @@ describe('Delete User test case', () => {
 		});
 		await expect(userService.deleteUser(user)).resolves.toBeUndefined();
 		expect(userRepository.delete).toHaveBeenCalledTimes(0);
-		expect(userRepository.find).toHaveBeenCalledWith({id: user.id});
-		expect(errorHandler).toHaveBeenCalledWith(null, `User delete failed. User with id ${user.id} not found in the system.`);
+		expect(userRepository.find).toHaveBeenCalledWith({username: user.username});
+		expect(errorHandler).toHaveBeenCalledWith(null, `User delete failed. User with username ${user.username} not found in the system.`);
 		expect(errorHandler).toHaveBeenCalledTimes(1);
 	});
 
@@ -338,7 +341,7 @@ describe('Delete User test case', () => {
 		});
 		await expect(userService.deleteUser(user)).resolves.toBeUndefined();
 		expect(userRepository.delete).toHaveBeenCalledTimes(1);
-		expect(userRepository.find).toHaveBeenCalledWith({id: user.id});
+		expect(userRepository.find).toHaveBeenCalledWith({username: user.username});
 		expect(errorHandler).toHaveBeenCalledWith(err, 'User delete failed');
 		expect(errorHandler).toHaveBeenCalledTimes(1);
 	});

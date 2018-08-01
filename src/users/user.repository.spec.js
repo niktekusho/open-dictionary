@@ -85,7 +85,7 @@ describe('User Repository test suite', () => {
 			});
 			const repository = await repositoryFactory(mongodb, connectionParams, logger);
 			const findQuery = {
-				id: 'someid'
+				username: 'someid'
 			};
 			await expect(repository.find(findQuery)).resolves.toBeUndefined();
 			expect(findMock).toHaveBeenCalledTimes(1);
@@ -115,7 +115,7 @@ describe('User Repository test suite', () => {
 			const repository = await repositoryFactory(mongodb, connectionParams, logger);
 			const findQuery = {
 				email: 'dsa',
-				name: 'aaa'
+				username: 'aaa'
 			};
 			await expect(repository.find(findQuery)).resolves.toBeDefined();
 			expect(findMock).toHaveBeenCalledTimes(1);

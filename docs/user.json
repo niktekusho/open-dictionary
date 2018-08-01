@@ -2,10 +2,10 @@
 	"$schema": "http://json-schema.org/draft-04/schema",
 	"type": "object",
 	"properties": {
-		"id": {
+		"username": {
 			"type": "string"
 		},
-		"name": {
+		"fullname": {
 			"type": "string"
 		},
 		"email": {
@@ -43,8 +43,7 @@
 		}
 	},
 	"required":[
-		"id",
-		"name",
+		"username",
 		"email",
 		"roles"
 	]
