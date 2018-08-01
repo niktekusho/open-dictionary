@@ -21,6 +21,9 @@
 				"type": "string"
 			}
 		},
+		"passwordHash": {
+			"type": "string"
+		},
 		"roles": {
 			"type": "array",
 			"items": {
@@ -45,6 +48,7 @@
 	"required":[
 		"username",
 		"email",
+		"passwordHash",
 		"roles"
 	]
 }

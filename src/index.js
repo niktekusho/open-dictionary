@@ -13,7 +13,7 @@ async function main() {
 	};
 	const userService = await userServiceFactory({userRepository, errorHandler});
 	const resp = await userService.createUser({
-		name: 'test',
+		username: 'test',
 		email: 'test',
 		passwordHash: 'test',
 		nativeLanguage: 'en'

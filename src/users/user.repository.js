@@ -18,7 +18,7 @@ async function repository(mongodb, {host, port, database}, logger) {
 		validator: {
 			$jsonSchema: {
 				bsonType: 'object',
-				required: ['username', 'email', 'roles'],
+				required: ['username', 'email', 'passwordHash', 'roles'],
 				properties: {
 					username: {
 						bsonType: 'string'
@@ -34,6 +34,9 @@ async function repository(mongodb, {host, port, database}, logger) {
 					},
 					languages: {
 						bsonType: ['string']
+					},
+					passwordHash: {
+						bsonType: 'string'
 					},
 					roles: {
 						bsonType: 'array',
@@ -98,14 +101,6 @@ async function repository(mongodb, {host, port, database}, logger) {
 			nativeLanguage,
 			roles
 		}) => {
-			// Usare insertOne
-			logger.log('TODO', {
-				fullname,
-				username,
-				email,
-				passwordHash,
-				nativeLanguage,
-				roles});
 			return collection.insertOne({
 				fullname,
 				username,
