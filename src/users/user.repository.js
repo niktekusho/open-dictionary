@@ -33,16 +33,19 @@ async function repository(mongodb, {host, port, database}, logger) {
 						bsonType: 'string'
 					},
 					fullname: {
-						bsonType: 'string'
+						bsonType: ['string', 'null']
 					},
 					email: {
 						bsonType: 'string'
 					},
 					nativeLanguage: {
-						bsonType: 'string'
+						bsonType: ['string', 'null']
 					},
 					languages: {
-						bsonType: ['string']
+						bsonType: ['array', 'null'],
+						items: {
+							bsonType: 'string'
+						}
 					},
 					passwordHash: {
 						bsonType: 'string'
@@ -121,7 +124,7 @@ async function repository(mongodb, {host, port, database}, logger) {
 					creationDate: new Date()
 				}
 			};
-			logger.debug(obj);
+			logger.debug(JSON.stringify(obj));
 			return collection.insertOne(obj);
 		},
 		update: async (usernameToUpdate, {
