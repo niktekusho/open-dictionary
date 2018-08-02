@@ -18,7 +18,8 @@
  },
  "scripts": {
   "lint": "xo",
-  "test": "xo && jest --verbose"
+  "test": "xo && jest --verbose",
+  "teststart": "node src/index.js"
  },
  "xo": {
   "envs": [
