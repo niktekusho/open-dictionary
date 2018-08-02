@@ -11,13 +11,20 @@ describe('User Repository test suite', () => {
 		};
 	});
 
+	const collections = jest.fn(() => []);
+
 	const db = jest.fn(() => {
 		return {
+			collections,
 			createCollection
 		};
 	});
 
 	const mongodb = {
+		Logger: {
+			setLevel: jest.fn(),
+			filter: jest.fn()
+		},
 		MongoClient: {
 			connect: jest.fn(() => {
 				return {

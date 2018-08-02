@@ -11,13 +11,18 @@ async function main() {
 		console.error(msg);
 		throw err;
 	};
-	const userService = await userServiceFactory({userRepository, errorHandler});
-	const resp = await userService.createUser({
+	const userService = await userServiceFactory({
+		userRepository,
+		errorHandler
+	});
+	const validTestUser = {
 		username: 'test',
 		email: 'test',
 		passwordHash: 'test',
 		nativeLanguage: 'en'
-	});
+	};
+	console.log(validTestUser);
+	const resp = await userService.createUser(validTestUser);
 	console.log(resp);
 	return userService.getUsers();
 }

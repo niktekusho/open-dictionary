@@ -6,17 +6,17 @@
 			"type": "string"
 		},
 		"fullname": {
-			"type": "string"
+			"type": ["string", "null"]
 		},
 		"email": {
 			"type": "string",
 			"format": "email"
 		},
 		"nativeLanguage": {
-			"type": "string"
+			"type": ["string", "null"]
 		},
 		"languages": {
-			"type": "array",
+			"type": ["array", "null"],
 			"items": {
 				"type": "string"
 			}
@@ -39,7 +39,7 @@
 					"format": "date-time"
 				},
 				"lastAccess": {
-					"type": "object",
+					"type": ["string", "null"],
 					"format": "date-time"
 				}
 			}

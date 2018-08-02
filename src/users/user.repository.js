@@ -1,11 +1,13 @@
 async function repository(mongodb, {host, port, database}, logger) {
-	const {MongoClient} = mongodb;
+	const {MongoClient, Logger} = mongodb;
 	const url = `mongodb://${host}:${port}/${database}`;
 
 	let client;
 	let db;
 	try {
 		client = await MongoClient.connect(url, {useNewUrlParser: true});
+		Logger.setLevel('debug');
+		Logger.filter('class', ['Db']);
 		db = await client.db();
 	} catch (err) {
 		// TODO retryConnection()
@@ -13,6 +15,13 @@ async function repository(mongodb, {host, port, database}, logger) {
 	}
 
 	logger.info(`Database at ${url} connected`);
+
+	// TODO Condition to check for a configuration
+	const collections = await db.collections();
+	if (collections.includes('users')) {
+		logger.debug('Drop collection users');
+		await db.collection('users').drop();
+	}
 
 	const collection = await db.createCollection('users', {
 		validator: {
@@ -101,7 +110,7 @@ async function repository(mongodb, {host, port, database}, logger) {
 			nativeLanguage,
 			roles
 		}) => {
-			return collection.insertOne({
+			const obj = {
 				fullname,
 				username,
 				email,
@@ -111,7 +120,9 @@ async function repository(mongodb, {host, port, database}, logger) {
 				metadata: {
 					creationDate: new Date()
 				}
-			});
+			};
+			logger.debug(obj);
+			return collection.insertOne(obj);
 		},
 		update: async (usernameToUpdate, {
 			email, fullname, username, passwordHash, nativeLanguage, role
