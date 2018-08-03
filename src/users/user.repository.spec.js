@@ -54,7 +54,11 @@ describe('User Repository test suite', () => {
 		await repositoryFactory(mongodb, connectionParams, logger);
 		expect(logger.info).toHaveBeenCalledWith(`Database at ${url} connected`);
 		expect(logger.error).toHaveBeenCalledTimes(0);
-		expect(createCollection).toHaveBeenCalledWith('users', expect.anything());
+		expect(createCollection).toHaveBeenCalledWith('users', expect.objectContaining({
+			validator: {
+				$jsonSchema: expect.anything()
+			}
+		}));
 		expect(mongodb.MongoClient.connect).toBeCalledWith(url, opts);
 	});
 	it('User Repository has expected properties', async () => {
@@ -63,6 +67,16 @@ describe('User Repository test suite', () => {
 		expect(repository).toHaveProperty('update');
 		expect(repository).toHaveProperty('insert');
 		expect(repository).toHaveProperty('delete');
+	});
+
+	it('log connection errors', async () => {
+		const err = new Error('test');
+		mongodb.MongoClient.connect.mockImplementationOnce(() => {
+			throw err;
+		});
+		await expect(repositoryFactory(mongodb, connectionParams, logger)).resolves.toBeUndefined();
+		expect(logger.error).toHaveBeenCalledTimes(1);
+		expect(logger.error).toHaveBeenCalledWith(err);
 	});
 
 	describe('User repository \'find\' test suite', () => {

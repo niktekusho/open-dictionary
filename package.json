@@ -17,6 +17,7 @@
   "node": ">=8"
  },
  "scripts": {
+  "coverage": "jest --coverage",
   "lint": "xo",
   "test": "xo && jest --verbose",
   "teststart": "node src/index.js"
