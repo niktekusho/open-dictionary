@@ -1,0 +1,59 @@
+{
+	"id": "user",
+	"type": "array",
+	"minItems": 100,
+	"items": {
+		"$schema": "http://json-schema.org/draft-04/schema",
+		"type": "object",
+		"properties": {
+			"username": {
+				"type": "string"
+			},
+			"fullname": {
+				"type": ["string", "null"]
+			},
+			"email": {
+				"type": "string",
+				"format": "email"
+			},
+			"nativeLanguage": {
+				"type": ["string", "null"]
+			},
+			"languages": {
+				"type": ["array", "null"],
+				"items": {
+					"type": "string"
+				}
+			},
+			"passwordHash": {
+				"type": "string"
+			},
+			"roles": {
+				"type": "array",
+				"items": {
+					"type": "string",
+					"enum": ["ADMIN", "WRITER", "REVIEWER", "READER"]
+				}
+			},
+			"metadata": {
+				"type": "object",
+				"properties": {
+					"creationDate": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"lastAccess": {
+						"type": ["string", "null"],
+						"format": "date-time"
+					}
+				}
+			}
+		},
+		"required": [
+			"username",
+			"email",
+			"passwordHash",
+			"roles"
+		]
+	}
+}
