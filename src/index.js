@@ -10,7 +10,7 @@ const fakeDataLoader = require('./fake.data.loader');
 const utils = require('./utils');
 
 async function prepopulate(userRepository) {
-	const fakeUsers = await fakeDataLoader('../generator/fake.users.json', {encoding: 'utf8'});
+	const fakeUsers = await fakeDataLoader('../generator/quick.fake.users.json', {encoding: 'utf8'});
 	const inserts = [];
 	// FakeUsers.forEach(user => inserts.push(userService.createUser(user)));
 	fakeUsers.forEach(user => inserts.push(userRepository.insert(user)));
@@ -41,9 +41,12 @@ async function main() {
 		Const resp = await userService.createUser(validTestUser);
 		console.log(resp);
 	*/
-
 	// return userService.getUsers();
-	return userRepository.find({}, userRepository.projections.minimal);
+	const nonUser = await userRepository.find(userRepository.queries.equalsUsername('non'), userRepository.projections.minimal);
+	console.log(nonUser);
+	const guazUser = await userRepository.find(userRepository.queries.equalsEmail('OHAX5RrdDmaa42@anDShiPY.guaz'), userRepository.projections.minimal);
+	console.log(guazUser);
+	return userRepository.find(userRepository.queries.createdToday());
 }
 
 main()

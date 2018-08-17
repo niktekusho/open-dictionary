@@ -2,11 +2,9 @@ module.exports = ({
 	toProjection
 }) => {
 	return {
-		projections: {
-			minimal: toProjection({
-				// Username,
-				// roles
-			})
-		}
+		minimal: toProjection({
+			username: 1,
+			roles: 1
+		})
 	};
 };

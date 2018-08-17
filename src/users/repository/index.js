@@ -27,10 +27,10 @@ module.exports = async function (mongodb, mongoUrl, logger, utils) {
 		await setupIndexes(collection);
 
 		return {
-			queries,
+			queries: queries(mongodb),
 			projections: projections(utils),
 			find: async (query = {}, projection = {}) => find(utils, logger, {collection, query, projection}),
-			insert: async user => insert(user, logger, collection),
+			insert: async user => insert(user, logger, {collection}),
 			update: async (username, newUser) => update({username, newUser}, logger, collection),
 			delete: async ({username}) => deleteUser(username, logger, collection)
 		};

@@ -13,8 +13,7 @@ describe('User repository -> \'Available projections\' test suite', () => {
 				toProjection: jest.fn(i => i)
 			};
 			expect(projections(mockToProjection)).toEqual(expect.any(Object));
-			expect(projections(mockToProjection).projections).toBeDefined();
-			expect(projections(mockToProjection).projections.minimal).toBeDefined();
+			expect(projections(mockToProjection).minimal).toBeDefined();
 		});
 	});
 });

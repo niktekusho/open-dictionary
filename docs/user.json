@@ -26,6 +26,7 @@
 		},
 		"roles": {
 			"type": "array",
+			"uniqueItems": true,
 			"items": {
 				"type": "string",
 				"enum": ["ADMIN", "WRITER", "REVIEWER", "READER"]
@@ -34,10 +35,6 @@
 		"metadata": {
 			"type": "object",
 			"properties": {
-				"creationDate": {
-					"type": "string",
-					"format": "date-time"
-				},
 				"lastAccess": {
 					"type": ["string", "null"],
 					"format": "date-time"

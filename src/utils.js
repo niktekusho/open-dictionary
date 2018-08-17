@@ -17,7 +17,7 @@ module.exports = {
 	},
 	toProjection: obj => ({
 		projection: {
-			obj
+			...obj
 		}
 	}),
 	buildMongoUrl: ({host, port, database}) => `mongodb://${host}:${port}/${database}`
