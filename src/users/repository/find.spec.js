@@ -21,22 +21,16 @@ describe('User repository -> \'Find\' test suite', () => {
 		]
 	}];
 
-	function identity(obj) {
-		return obj;
-	}
-
-	const findMock = jest.fn(() => {
-		return {
-			toArray: jest.fn(identity)
-		};
-	});
-
 	const collection = {
-		find: jest.fn(() => findMock(sampleUsers))
+		find: jest.fn(() => {
+			return {
+				toArray: async () => sampleUsers
+			};
+		})
 	};
 
 	const utils = {
-		unboxArray: jest.fn(identity)
+		unboxArray: jest.fn(() => sampleUsers)
 	};
 
 	const logger = {
@@ -48,62 +42,16 @@ describe('User repository -> \'Find\' test suite', () => {
 	});
 
 	afterEach(() => {
-		collection.find.mockReset();
+		collection.find.mockClear();
 	});
 
-	it('\'find\' called without query object should return all users', async () => {
+	it('should call collection.find function', async () => {
 		await expect(find(utils, logger, {
 			collection
 		})).resolves.toEqual(sampleUsers);
-		expect(find).toHaveBeenCalledTimes(1);
-		expect(find).toHaveBeenCalledWith({}, {});
+		expect(collection.find).toHaveBeenCalledTimes(1);
+		expect(collection.find).toHaveBeenCalledWith({}, {});
 		expect(utils.unboxArray).toHaveBeenCalledWith(sampleUsers);
 		expect(logger.debug).toHaveBeenCalled();
 	});
-
-	// it('\'find\' called with id should return undefined if user does not exist', async () => {
-	// 	const fakeData = [];
-	// 	findMock = findMock.mockImplementationOnce(() => {
-	// 		return {
-	// 			toArray: () => fakeData
-	// 		};
-	// 	});
-	// 	const repository = await repositoryFactory(mongodb, connectionParams, logger);
-	// 	const findQuery = {
-	// 		username: 'someid'
-	// 	};
-	// 	await expect(repository.find(findQuery)).resolves.toBeUndefined();
-	// 	expect(findMock).toHaveBeenCalledTimes(1);
-	// 	expect(findMock).toHaveBeenCalledWith(findQuery);
-	// });
-
-	// it('\'find\' called without id should return undefined if no users exist', async () => {
-	// 	const fakeData = [];
-	// 	findMock = findMock.mockImplementationOnce(() => {
-	// 		return {
-	// 			toArray: () => fakeData
-	// 		};
-	// 	});
-	// 	const repository = await repositoryFactory(mongodb, connectionParams, logger);
-	// 	await expect(repository.find()).resolves.toBeUndefined();
-	// 	expect(findMock).toHaveBeenCalledTimes(1);
-	// 	expect(findMock).toHaveBeenCalledWith({});
-	// });
-
-	// it('\'find\' called with a query object should return users based on the query result', async () => {
-	// 	const fakeData = [{}, {}];
-	// 	findMock = findMock.mockImplementationOnce(() => {
-	// 		return {
-	// 			toArray: () => fakeData
-	// 		};
-	// 	});
-	// 	const repository = await repositoryFactory(mongodb, connectionParams, logger);
-	// 	const findQuery = {
-	// 		email: 'dsa',
-	// 		username: 'aaa'
-	// 	};
-	// 	await expect(repository.find(findQuery)).resolves.toBeDefined();
-	// 	expect(findMock).toHaveBeenCalledTimes(1);
-	// 	expect(findMock).toHaveBeenCalledWith(findQuery);
-	// });
 });
