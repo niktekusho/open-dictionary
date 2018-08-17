@@ -1,3 +1,5 @@
+const {fakeUsers: sampleUsers} = require('../test.utils');
+
 const find = require('./find');
 
 describe('User repository -> \'Find\' test suite', () => {
@@ -8,26 +10,6 @@ describe('User repository -> \'Find\' test suite', () => {
 	});
 
 	describe('Evaluating module functionality', () => {
-		const sampleUsers = [{
-			username: 'veniam',
-			email: 'Mx8E3H4TVr@rNaCqgnQxp.sz',
-			passwordHash: 'amet cupidatat',
-			roles: [
-				'ADMIN',
-				'ADMIN',
-				'READER'
-			]
-		},
-		{
-			username: 'qui quis',
-			email: 'fUwpRV@OXBlMuRHkVenLqQODZe.sw',
-			passwordHash: 'pariatur',
-			roles: [
-				'ADMIN',
-				'ADMIN'
-			]
-		}];
-
 		const collection = {
 			find: jest.fn(() => {
 				return {
