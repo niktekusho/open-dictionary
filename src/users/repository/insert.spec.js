@@ -53,13 +53,13 @@ describe('User repository -> \'Insert\' test suite', () => {
 				insertOne: jest.fn(async i => i)
 			};
 
-			// sample of real options
+			// Sample of real options
 			const insertOpts = {
 				w: 'majority',
 				wtimeout: 10000,
 				serializeFunctions: true,
 				forceServerObjectId: true
-			}
+			};
 
 			const fakeUser = sampleUsers[0];
 			await expect(insert(fakeUser, logger, {

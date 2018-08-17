@@ -4,7 +4,7 @@ module.exports = ({
 	return {
 		projections: {
 			minimal: toProjection({
-				// username,
+				// Username,
 				// roles
 			})
 		}

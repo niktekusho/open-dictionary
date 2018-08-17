@@ -10,7 +10,7 @@ const fakeDataLoader = require('./fake.data.loader');
 async function prepopulate(userRepository) {
 	const fakeUsers = await fakeDataLoader('../generator/fake.users.json', {encoding: 'utf8'});
 	const inserts = [];
-	// fakeUsers.forEach(user => inserts.push(userService.createUser(user)));
+	// FakeUsers.forEach(user => inserts.push(userService.createUser(user)));
 	fakeUsers.forEach(user => inserts.push(userRepository.insert(user)));
 	return Promise.all(inserts);
 }
@@ -19,7 +19,7 @@ async function main() {
 	const userRepository = await userRepositoryFactory(mongodb, userConfig, console);
 	const errorHandler = (err, msg) => {
 		console.error(err, msg);
-		/* throw err; */
+		/* Throw err; */
 	};
 	const userService = await userServiceFactory({
 		userRepository,
@@ -27,15 +27,15 @@ async function main() {
 	});
 	console.log(userService);
 
-	// get all users
+	// Get all users
 	const users = await userRepository.find();
 	if (users === undefined) {
-		// populate with fake data if collection is empty
+		// Populate with fake data if collection is empty
 		await prepopulate(userRepository);
 	}
 
 	/*
-		const resp = await userService.createUser(validTestUser);
+		Const resp = await userService.createUser(validTestUser);
 		console.log(resp);
 	*/
 
