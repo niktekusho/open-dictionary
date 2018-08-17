@@ -8,16 +8,28 @@ describe('User repository -> \'Delete\' test suite', () => {
 	});
 
 	describe('Evaluating module functionality', () => {
-		// TODO: current implementation is empty
-		it('should call logger', async () => {
-			const logger = {
-				log: jest.fn()
-			};
-			const username = 'testUser';
-			const collection = 'testCollection';
-			await expect(deleteUser(username, logger, collection)).resolves;
+		it('when username is undefined it should resolve with null', async () => {
+			await expect(deleteUser(undefined, null, null)).resolves.toBeNull();
+		});
 
-			expect(logger.log).toHaveBeenCalled();
+		it('when username is null it should resolve with null', async () => {
+			await expect(deleteUser(null, null, null)).resolves.toBeNull();
+		});
+
+		it('should call findOneAndDelete', async () => {
+			const expectedResponse = {};
+
+			const collection = {
+				findOneAndDelete: jest.fn(async () => expectedResponse)
+			};
+
+			const logger = {
+				debug: jest.fn()
+			};
+
+			await expect(deleteUser('test', logger, collection)).resolves.toEqual(expectedResponse);
+			expect(collection.findOneAndDelete).toHaveBeenCalledTimes(1);
+			expect(collection.findOneAndDelete).toHaveBeenCalledWith({username: 'test'});
 		});
 	});
 });

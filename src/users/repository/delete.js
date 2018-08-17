@@ -1,4 +1,7 @@
 module.exports = async (username, logger, collection) => {
-	logger.log(username);
-	logger.log(collection);
+	if (username === null || username === undefined) {
+		return null;
+	}
+	logger.debug(`Attempting remove of ${username}`);
+	return collection.findOneAndDelete({username});
 };
