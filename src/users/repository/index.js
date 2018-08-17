@@ -8,25 +8,17 @@ const deleteUser = require('./delete');
 const projections = require('./projections');
 const queries = require('./queries');
 
-module.exports = async function (mongodb, {
-	host,
-	port,
-	database
-}, logger, utils) {
+module.exports = async function (mongodb, mongoUrl, logger, utils) {
 	let db;
 	try {
-		db = await init(mongodb, {
-			host,
-			port,
-			database
-		}, logger);
+		db = await init.connect(mongodb, mongoUrl);
 	} catch (error) {
 		// TODO handle reconnection
 		logger.error('Trouble connecting to mongo', error);
 	}
 
 	if (db !== undefined && db !== null) {
-		logger.info(`Database at ${utils.buildMongoUrl({host, port, database})} connected`);
+		logger.info(`Database at ${mongoUrl} connected`);
 
 		const collection = await db.createCollection('users', {
 			validator: userSchema
@@ -37,9 +29,9 @@ module.exports = async function (mongodb, {
 		return {
 			queries,
 			projections: projections(utils),
-			find: async (query = {}, projection = {}) => find(utils, logger, collection, query, projection),
+			find: async (query = {}, projection = {}) => find(utils, logger, {collection, query, projection}),
 			insert: async user => insert(user, logger, collection),
-			update: async (usernameToUpdate, updatedUser) => update(usernameToUpdate, updatedUser, logger, collection),
+			update: async (username, newUser) => update({username, newUser}, logger, collection),
 			delete: async ({username}) => deleteUser(username, logger, collection)
 		};
 	}

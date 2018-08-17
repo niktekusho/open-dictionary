@@ -1,15 +1,9 @@
 module.exports = {
-	connect: async (mongodb, {
-		host,
-		port,
-		database
-	}, {buildMongoUrl}) => {
+	connect: async (mongodb, mongoUrl) => {
 		const {
 			MongoClient
 		} = mongodb;
-		const url = buildMongoUrl({host, port, database});
-
-		const client = await MongoClient.connect(url, {
+		const client = await MongoClient.connect(mongoUrl, {
 			useNewUrlParser: true
 		});
 		const db = await client.db();

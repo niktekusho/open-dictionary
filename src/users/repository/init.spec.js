@@ -27,17 +27,10 @@ describe('User repository -> \'Init\' test suite', () => {
 				})
 			}
 		};
-		const connectionParams = {
-			host: 'host',
-			port: '1234',
-			database: 'db'
-		};
-		const utils = {
-			buildMongoUrl: () => 'mongodb://host:1234/db'
-		};
+		const url = 'mongodb://host:1234/db';
 
 		it('should call MongoClient.connect function', async () => {
-			await expect(init.connect(mongodb, connectionParams, utils)).resolves.toEqual(db());
+			await expect(init.connect(mongodb, url)).resolves.toEqual(db());
 			expect(mongodb.MongoClient.connect).toHaveBeenCalledTimes(1);
 			expect(mongodb.MongoClient.connect).toHaveBeenCalledWith('mongodb://host:1234/db', expect.anything());
 		});

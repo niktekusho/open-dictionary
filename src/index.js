@@ -1,11 +1,13 @@
 const mongodb = require('mongodb');
 
 const userRepositoryFactory = require('./users/repository');
-const userServiceFactory = require('./users/user.service');
+// const userServiceFactory = require('./users/user.service');
 
 const userConfig = require('./config/user');
 
 const fakeDataLoader = require('./fake.data.loader');
+
+const utils = require('./utils');
 
 async function prepopulate(userRepository) {
 	const fakeUsers = await fakeDataLoader('../generator/fake.users.json', {encoding: 'utf8'});
@@ -16,16 +18,17 @@ async function prepopulate(userRepository) {
 }
 
 async function main() {
-	const userRepository = await userRepositoryFactory(mongodb, userConfig, console);
-	const errorHandler = (err, msg) => {
-		console.error(err, msg);
-		/* Throw err; */
-	};
-	const userService = await userServiceFactory({
-		userRepository,
-		errorHandler
-	});
-	console.log(userService);
+	const mongoUrl = utils.buildMongoUrl(userConfig);
+	const userRepository = await userRepositoryFactory(mongodb, mongoUrl, console, utils);
+	// const errorHandler = (err, msg) => {
+	// 	console.error(err, msg);
+	// 	/* Throw err; */
+	// };
+	// const userService = await userServiceFactory({
+	// 	userRepository,
+	// 	errorHandler
+	// });
+	// console.log(userService);
 
 	// Get all users
 	const users = await userRepository.find();
