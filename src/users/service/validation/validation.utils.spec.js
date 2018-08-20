@@ -12,8 +12,6 @@ describe('User service -> \'Validation\' test suite', () => {
 	});
 
 	describe('Evaluating module functionality', () => {
-		// ### MOCKS
-		// User repository mock
 		it('isAdmin should return true if the user includes the ADMIN role', () => {
 			const user = {
 				roles: ['ADMIN', 'REVIEWER', 'READER', 'WRITER']
