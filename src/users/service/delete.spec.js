@@ -1,6 +1,6 @@
 const {
 	fakeUsers
-} = require('../../test.utils');
+} = require('../test.utils');
 
 const deleteUser = require('./delete');
 

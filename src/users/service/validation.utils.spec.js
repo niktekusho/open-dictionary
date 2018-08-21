@@ -1,4 +1,4 @@
-const {fakeUsers} = require('../../test.utils');
+const {fakeUsers, validFakeUsers} = require('../test.utils');
 
 const validationUtils = require('./validation.utils');
 
@@ -8,6 +8,7 @@ describe('User service -> \'Validation\' test suite', () => {
 			expect(validationUtils).toMatchObject(expect.any(Object));
 			expect(validationUtils.isAdmin).toEqual(expect.any(Function));
 			expect(validationUtils.isValidEmail).toEqual(expect.any(Function));
+			expect(validationUtils.isValidUser).toEqual(expect.any(Function));
 		});
 	});
 
@@ -27,7 +28,17 @@ describe('User service -> \'Validation\' test suite', () => {
 		});
 
 		it('isValidEmail should return true according to RFCs 5321, 5322, and others', () => {
-			fakeUsers.forEach(user => expect(validationUtils.isValidEmail(user.email)).toEqual(true));
+			validFakeUsers.forEach(user => expect(validationUtils.isValidEmail(user.email)).toEqual(true));
+		});
+
+		it('isValidUser should return an object with valid = true if the user has all the required properties', () => {
+			const validations = validFakeUsers.map(user => validationUtils.isValidUser(user));
+			validations.forEach(validation => expect(validation).toEqual({valid: true}));
+		});
+
+		it('isValidUser should return false, alongside an errors object indicating the reason if the user does not ', () => {
+			const validations = fakeUsers.map(user => validationUtils.isValidUser(user));
+			validations.forEach(validation => expect(validation).toEqual({valid: false, errors: expect.any(Object)}));
 		});
 	});
 });

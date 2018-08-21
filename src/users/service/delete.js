@@ -1,4 +1,4 @@
-const {isAdmin} = require('../validation/validation.utils');
+const {isAdmin} = require('./validation.utils');
 
 module.exports = async (currentUser, username, userRepository, logger) => {
 	logger.debug(`User ${currentUser.username} is trying to delete ${username}`);
