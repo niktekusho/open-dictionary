@@ -8,7 +8,11 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Launch Program",
-			"program": "${workspaceFolder}/src/index.js"
+			"program": "${workspaceFolder}/src/index.js",
+			"skipFiles": [
+				"<node_internals>/**/*.js",
+				"${workspaceFolder}/node_modules/**/*.js"
+			]
 		},
 		{
 			"type": "node",
@@ -20,7 +24,11 @@
 			],
 			"cwd": "${workspaceFolder}",
 			"console": "integratedTerminal",
-			"internalConsoleOptions": "neverOpen"
+			"internalConsoleOptions": "neverOpen",
+			"skipFiles": [
+				"<node_internals>/**/*.js",
+				"${workspaceFolder}/node_modules/**/*.js"
+			]
 		}
 	]
 }
