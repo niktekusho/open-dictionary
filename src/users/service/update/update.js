@@ -1,4 +1,4 @@
-const {isAdmin} = require('../validation.utils');
+const {isAdmin} = require('../validation-utils');
 
 function isNotDefined(obj) {
 	return obj === null || obj === undefined;

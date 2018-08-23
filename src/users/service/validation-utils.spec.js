@@ -1,6 +1,6 @@
 const {fakeUsers, validFakeUsers} = require('../test.utils');
 
-const validationUtils = require('./validation.utils');
+const validationUtils = require('./validation-utils');
 
 describe('User service -> \'Validation\' test suite', () => {
 	describe('Evaluating exported module', () => {

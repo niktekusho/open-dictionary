@@ -1,4 +1,4 @@
-const {isValidUser} = require('./validation.utils');
+const {isValidUser} = require('./validation-utils');
 
 module.exports = async (user, userRepository, logger) => {
 	if (user) {
