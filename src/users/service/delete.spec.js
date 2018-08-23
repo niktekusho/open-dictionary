@@ -1,6 +1,4 @@
-const {
-	fakeUsers
-} = require('../test.utils');
+const {fakeUsers} = require('../test-utils');
 
 const deleteUser = require('./delete');
 
@@ -11,8 +9,7 @@ describe('User service -> \'Delete\' test suite', () => {
 		});
 	});
 
-	// ### MOCKS
-	// User repository mock
+	// ### MOCKS User repository mock
 	const userRepository = {
 		delete: jest.fn(async () => true)
 	};
@@ -24,7 +21,9 @@ describe('User service -> \'Delete\' test suite', () => {
 	};
 
 	afterEach(() => {
-		userRepository.delete.mockClear();
+		userRepository
+			.delete
+			.mockClear();
 	});
 
 	// ### END MOCKS
@@ -33,7 +32,9 @@ describe('User service -> \'Delete\' test suite', () => {
 		it('should call userRepository error function with the username parameter', async () => {
 			const username = 'test';
 			const currentUser = fakeUsers[0];
-			await expect(deleteUser(currentUser, username, userRepository, logger)).resolves.toEqual(true);
+			await expect(deleteUser(currentUser, username, userRepository, logger))
+				.resolves
+				.toEqual(true);
 			expect(userRepository.delete).toHaveBeenCalledTimes(1);
 			expect(userRepository.delete).toHaveBeenCalledWith(username);
 		});
@@ -41,7 +42,9 @@ describe('User service -> \'Delete\' test suite', () => {
 
 	describe('when the current user is not an Admin', () => {
 		describe('and it tries to delete a user which is not itself', () => {
-			it('should reject with an error sayng that the user does not have the appropriate permissions', async () => {
+			it('should reject with an error sayng that the user does not have the appropriate pe' +
+                    'rmissions',
+			async () => {
 				const username = 'test';
 				const currentUser = {
 					username: 'ok',
@@ -62,7 +65,9 @@ describe('User service -> \'Delete\' test suite', () => {
 					username: 'ok',
 					roles: ['REVIEWER']
 				};
-				await expect(deleteUser(currentUser, username, userRepository, logger)).resolves.toEqual(true);
+				await expect(deleteUser(currentUser, username, userRepository, logger))
+					.resolves
+					.toEqual(true);
 				expect(userRepository.delete).toHaveBeenCalledTimes(1);
 				expect(userRepository.delete).toHaveBeenCalledWith(username);
 			});

@@ -5,7 +5,7 @@ const userRepositoryFactory = require('./users/repository');
 
 const userConfig = require('./config/user-config');
 
-const fakeDataLoader = require('./fake.data.loader');
+const fakeDataLoader = require('./fake-data-oader');
 
 const utils = require('./utils');
 

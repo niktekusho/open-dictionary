@@ -1,6 +1,4 @@
-const {
-	fakeUsers: sampleUsers
-} = require('../test.utils');
+const {fakeUsers: sampleUsers} = require('../test-utils');
 
 const insert = require('./insert');
 
@@ -13,8 +11,12 @@ describe('User repository -> \'Insert\' test suite', () => {
 
 	describe('Evaluating module functionality', () => {
 		it('should resolve without errors even when the user arg is null or undefined', async () => {
-			await expect(insert(null, console, {})).resolves.toBeNull();
-			await expect(insert(undefined, console, {})).resolves.toBeNull();
+			await expect(insert(null, console, {}))
+				.resolves
+				.toBeNull();
+			await expect(insert(undefined, console, {}))
+				.resolves
+				.toBeNull();
 		});
 
 		const logger = {
@@ -27,9 +29,9 @@ describe('User repository -> \'Insert\' test suite', () => {
 			};
 
 			const fakeUser = sampleUsers[0];
-			await expect(insert(fakeUser, logger, {
-				collection
-			})).resolves.toEqual(fakeUser);
+			await expect(insert(fakeUser, logger, {collection}))
+				.resolves
+				.toEqual(fakeUser);
 			expect(logger.debug).toHaveBeenCalled();
 			expect(collection.insertOne).toHaveBeenCalledTimes(1);
 			expect(collection.insertOne).toHaveBeenCalledWith(fakeUser, {});
@@ -40,9 +42,9 @@ describe('User repository -> \'Insert\' test suite', () => {
 				insertMany: jest.fn(async i => i)
 			};
 
-			await expect(insert(sampleUsers, logger, {
-				collection
-			})).resolves.toEqual(sampleUsers);
+			await expect(insert(sampleUsers, logger, {collection}))
+				.resolves
+				.toEqual(sampleUsers);
 			expect(logger.debug).toHaveBeenCalled();
 			expect(collection.insertMany).toHaveBeenCalledTimes(1);
 			expect(collection.insertMany).toHaveBeenCalledWith(sampleUsers, {});
@@ -62,9 +64,9 @@ describe('User repository -> \'Insert\' test suite', () => {
 			};
 
 			const fakeUser = sampleUsers[0];
-			await expect(insert(fakeUser, logger, {
-				collection, insertOpts
-			})).resolves.toBeDefined();
+			await expect(insert(fakeUser, logger, {collection, insertOpts}))
+				.resolves
+				.toBeDefined();
 			expect(collection.insertOne).toHaveBeenCalledTimes(1);
 			expect(collection.insertOne).toHaveBeenCalledWith(fakeUser, insertOpts);
 		});

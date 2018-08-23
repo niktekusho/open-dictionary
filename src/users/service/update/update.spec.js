@@ -1,4 +1,4 @@
-const {fakeUsers} = require('../../test.utils');
+const {fakeUsers} = require('../../test-utils');
 const updateUser = require('./update');
 
 describe('User service -> \'Update\' test suite', () => {
@@ -8,8 +8,7 @@ describe('User service -> \'Update\' test suite', () => {
 		});
 	});
 
-	// ### MOCKS
-	// User repository mock
+	// ### MOCKS User repository mock
 	const userRepository = {
 		update: jest.fn(async () => true)
 	};
@@ -21,8 +20,12 @@ describe('User service -> \'Update\' test suite', () => {
 	};
 
 	afterEach(() => {
-		logger.error.mockClear();
-		userRepository.update.mockClear();
+		logger
+			.error
+			.mockClear();
+		userRepository
+			.update
+			.mockClear();
 	});
 
 	// ### END MOCKS
@@ -31,7 +34,9 @@ describe('User service -> \'Update\' test suite', () => {
 		const currentUser = fakeUsers[0];
 		const userToUpdate = fakeUsers[1];
 		it('should reject with a generic error', async () => {
-			userRepository.update.mockImplementationOnce(() => Promise.reject(new Error()));
+			userRepository
+				.update
+				.mockImplementationOnce(() => Promise.reject(new Error()));
 			try {
 				await updateUser(currentUser, userToUpdate, userRepository, logger);
 			} catch (err) {
@@ -41,7 +46,9 @@ describe('User service -> \'Update\' test suite', () => {
 			expect(userRepository.update).toHaveBeenCalledTimes(1);
 		});
 		it('should log the raised error', async () => {
-			userRepository.update.mockImplementationOnce(() => Promise.reject(new Error()));
+			userRepository
+				.update
+				.mockImplementationOnce(() => Promise.reject(new Error()));
 			try {
 				await updateUser(currentUser, userToUpdate, userRepository, logger);
 			} catch (err) {
@@ -68,8 +75,12 @@ describe('User service -> \'Update\' test suite', () => {
 
 	describe('when the user update object is null or undefined', () => {
 		it('should resolve but do nothing else', async () => {
-			await expect(updateUser({}, null, userRepository, logger)).resolves.toBeUndefined();
-			await expect(updateUser({}, undefined, userRepository, logger)).resolves.toBeUndefined();
+			await expect(updateUser({}, null, userRepository, logger))
+				.resolves
+				.toBeUndefined();
+			await expect(updateUser({}, undefined, userRepository, logger))
+				.resolves
+				.toBeUndefined();
 			expect(userRepository.update).toHaveBeenCalledTimes(0);
 		});
 	});
@@ -78,7 +89,9 @@ describe('User service -> \'Update\' test suite', () => {
 		it('should be able to update no-matter-what an other user', async () => {
 			const currentUser = fakeUsers[0];
 			const userToUpdate = fakeUsers[1];
-			await expect(updateUser(currentUser, userToUpdate, userRepository, logger)).resolves.toBeDefined();
+			await expect(updateUser(currentUser, userToUpdate, userRepository, logger))
+				.resolves
+				.toBeDefined();
 			expect(userRepository.update).toHaveBeenCalledTimes(1);
 			expect(userRepository.update).toHaveBeenCalledWith(userToUpdate.username, userToUpdate);
 		});
@@ -86,7 +99,9 @@ describe('User service -> \'Update\' test suite', () => {
 
 	describe('when the current user is not an Admin', () => {
 		describe('and it tries to update a user which is not itself', () => {
-			it('should reject with an error saying that the user does not have the appropriate permissions', async () => {
+			it('should reject with an error saying that the user does not have the appropriate p' +
+                    'ermissions',
+			async () => {
 				const currentUser = {
 					username: 'ok',
 					roles: ['REVIEWER']
@@ -106,7 +121,9 @@ describe('User service -> \'Update\' test suite', () => {
 					username: 'ok',
 					roles: ['REVIEWER']
 				};
-				await expect(updateUser(currentUser, currentUser, userRepository, logger)).resolves.toBeDefined();
+				await expect(updateUser(currentUser, currentUser, userRepository, logger))
+					.resolves
+					.toBeDefined();
 				expect(userRepository.update).toHaveBeenCalledTimes(1);
 				expect(userRepository.update).toHaveBeenCalledWith(username, currentUser);
 			});

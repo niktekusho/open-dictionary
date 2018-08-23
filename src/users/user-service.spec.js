@@ -1,4 +1,4 @@
-const userServiceFactory = require('./user.service');
+const userServiceFactory = require('./user-service');
 
 const adminUser = {
 	username: 'somerandomuserid',
