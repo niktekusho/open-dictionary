@@ -3,6 +3,7 @@ const Ajv = require('ajv');
 
 const {UserRole} = require('../user');
 const userSchema = require('../../../docs/user.json');
+const Validation = require('../../validation');
 
 // IIFE
 module.exports = (() => {
@@ -22,14 +23,8 @@ module.exports = (() => {
 		isValidUser: user => {
 			const isValid = lazyValidate()(user);
 			// Build the basic object which tells if the user is valid or not
-			const output = {
-				valid: isValid
-			};
 			// If the user wasn't valid, the validate function of ajv has an errors property with the relevant errors.
-			if (!isValid) {
-				// In order to provide more info on the validation error, add the property to the output object
-				output.errors = jsonValidate.errors;
-			}
+			const output = new Validation(isValid, jsonValidate.errors);
 			// Finally return the result object
 			return output;
 		}

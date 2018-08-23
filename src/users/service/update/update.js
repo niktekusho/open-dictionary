@@ -1,11 +1,28 @@
+const {isAdmin} = require('../validation.utils');
+
+function isNotDefined(obj) {
+	return obj === null || obj === undefined;
+}
+
+async function handleUpdate(username, updateUser, userRepository, logger) {
+	try {
+		const res = await userRepository.update(username, updateUser);
+		logger.debug(res);
+		return `User ${username} updated`;
+	} catch (err) {
+		logger.error(err);
+		throw new Error(`User service -> update -> update failed`);
+	}
+}
+
 module.exports = async (currentUser, updateUser, userRepository, logger) => {
 	// #0: Check input data sanity
-	if (currentUser === undefined || currentUser === null) {
+	if (isNotDefined(currentUser)) {
 		logger.debug('User service -> update -> current user is undefined');
 		throw new Error('Current user is undefined');
 	}
 
-	if (updateUser === null || updateUser === undefined) {
+	if (isNotDefined(updateUser)) {
 		logger.debug('User service -> update -> update user object is undefined');
 		return;
 	}
@@ -15,14 +32,13 @@ module.exports = async (currentUser, updateUser, userRepository, logger) => {
 
 	if (sameUser) {
 		logger.debug(`User service -> update -> ${currentUser.username} is trying to update itself`);
-	} else {
-		logger.debug(`User service -> update -> ${currentUser.username} is trying to update itself`);
+		return handleUpdate(usernameToUpdate, updateUser, userRepository, logger);
 	}
 
-	// #1: Check that the current user has enough permissions to update
-	logger.debug(`User ${currentUser.username} is trying to update ${usernameToUpdate}`);
-	// if (isAdmin(currentUser) || currentUser.username === username) {
-	// 	return userRepository.delete(username);
-	// }
-	// throw new Error(`User ${currentUser.username} does not have enough permissions to delete a user`);
+	logger.debug(`User service -> update -> ${currentUser.username} is trying to update ${usernameToUpdate}`);
+	if (isAdmin(currentUser)) {
+		logger.debug(`User service -> update -> ${currentUser.username} with admin permissions is trying to update ${usernameToUpdate}`);
+		return handleUpdate(usernameToUpdate, updateUser, userRepository, logger);
+	}
+	throw new Error(`User ${currentUser.username} does not have enough permissions to delete an other user`);
 };
