@@ -1,5 +1,5 @@
 const init = require('./init');
-const userSchema = require('./validation-schema');
+const userSchema = require('./db-validation-schema');
 const setupIndexes = require('./setup-indexes');
 const find = require('./find');
 const insert = require('./insert');
