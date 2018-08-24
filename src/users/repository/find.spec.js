@@ -1,4 +1,6 @@
-const {fakeUsers: sampleUsers} = require('../test-utils');
+const {
+	fakeUsers: sampleUsers
+} = require('../test-utils');
 
 const find = require('./find');
 
@@ -33,13 +35,22 @@ describe('User repository -> \'Find\' test suite', () => {
 		});
 
 		it('should call collection.find function', async () => {
-			await expect(find(utils, logger, {collection}))
-				.resolves
-				.toEqual(sampleUsers);
+			await expect(find(utils, logger, {
+				collection
+			})).resolves.toEqual(sampleUsers);
 			expect(collection.find).toHaveBeenCalledTimes(1);
 			expect(collection.find).toHaveBeenCalledWith({}, {});
 			expect(utils.unboxArray).toHaveBeenCalledWith(sampleUsers);
 			expect(logger.debug).toHaveBeenCalled();
+		});
+
+		describe('when the result is empty', () => {
+			it('should resolve with undefined', async () => {
+				utils.unboxArray.mockImplementationOnce(() => undefined);
+				await expect(find(utils, logger, {
+					collection
+				})).resolves.toBeUndefined();
+			});
 		});
 	});
 });
