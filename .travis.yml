@@ -7,13 +7,13 @@ matrix:
   include:
   - os: linux
     dist: xenial
-    sudo: false
+    sudo: true
     before-script:
       - docker pull mongo:4.0.0
       - docker images
   - os: linux
     dist: trusty
-    sudo: false
+    sudo: true
     before-script:
       - docker pull mongo:4.0.0
       - docker images
