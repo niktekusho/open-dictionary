@@ -22,4 +22,3 @@ jobs:
   - os: osx
 services:
   - docker
-script: integration

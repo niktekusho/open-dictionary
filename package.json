@@ -26,7 +26,7 @@
 		"coverage": "jest --coverage",
 		"lint": "xo",
 		"pretest": "xo",
-		"test": "yarpm run unit && yarpm run integration",
+		"test": "$npm_execpath run unit && $npm_execpath run integration",
 		"unit": "jest",
 		"integration": "jest -c ./jest.config.integration.js",
 		"teststart": "nodemon src/index.js"
