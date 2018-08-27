@@ -27,6 +27,6 @@ matrix:
       - "10"
     services:
       - docker
-    - os: osx
+  - os: osx
     script: yarn unit
 
