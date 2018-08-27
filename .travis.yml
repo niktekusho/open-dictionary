@@ -13,7 +13,7 @@ matrix:
       - docker images
   - os: linux
     dist: trusty
-    sudo: true
+    sudo: required
     before_install:
       - docker pull mongo:4.0.0
       - docker images
