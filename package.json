@@ -25,8 +25,8 @@
 		"coverage": "jest --coverage",
 		"lint": "xo",
 		"pretest": "xo",
-		"test": "jest",
-		"preintegration": "xo",
+		"test": "$npm_execpath run unit && $npm_execpath run integration",
+		"unit": "jest",
 		"integration": "jest -c ./jest.config.integration.js",
 		"teststart": "nodemon src/index.js"
 	},
