@@ -8,16 +8,16 @@ matrix:
   - os: linux
     dist: xenial
     sudo: false
-    before-install:
+    before-script:
       - docker pull mongo:4.0.0
       - docker images
   - os: linux
     dist: trusty
     sudo: false
-    before-install:
+    before-script:
       - docker pull mongo:4.0.0
       - docker images
   - os: osx
-    scripts: yarn unit
+    script: yarn unit
 services:
   - docker
