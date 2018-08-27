@@ -2,6 +2,10 @@ language: node_js
 
 cache: yarn
 
+node_js:
+  - "8"
+  - "10"
+
 matrix:
   include:
   - os: linux
@@ -10,9 +14,6 @@ matrix:
     before_install:
       - docker pull mongo:4.0.0
       - docker images
-    node_js:
-      - "8"
-      - "10"
     services:
       - docker
   - os: linux
@@ -21,10 +22,6 @@ matrix:
     before_install:
       - docker pull mongo:4.0.0
       - docker images
-      - docker --version
-    node_js:
-      - "8"
-      - "10"
     services:
       - docker
   - os: osx
