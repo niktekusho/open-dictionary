@@ -18,42 +18,7 @@ jobs:
   - stage: linux-full-build-node-8
     os: linux
     dist: trusty
-    sudo: true
-    node_js:
-      - '8'
-    services:
-      - docker
-  - stage: linux-full-build-node-10
-    os: linux
-    dist: xenial
-    sudo: true
-    node_js:
-      - '10'
-    services:
-      - docker
-  - stage: linux-full-build-node-10
-    os: linux
-    dist: trusty
-    sudo: true
-    node_js:
-      - '10'
-    services:
-      - docker
-  - stage: osx-no-int-test-build
-    os: osx
-    script: yarn unit
-    node_js:
-      - '8'
-    before_install:
-      - echo 'osx -> disable before install'
-  - stage: osx-no-int-test-build
-    os: osx
-    script: yarn unit
-    node_js:
-      - '10'
-    before_install:
-      - echo 'osx -> disable before install'
-
-before_install:
-  - docker pull mongo:4.0.0
-  - docker images
+    sudo: false
+  - os: osx
+services:
+  - docker
