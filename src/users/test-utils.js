@@ -19,16 +19,16 @@ module.exports = {
 		]
 	}],
 	validFakeUsers: [{
-		username: 'veniam',
-		email: 'Mx8E3H4TVr@rNaCqgnQxp.sz',
+		username: 'veniam ca',
+		email: 'ssaa@rNaCqgnQxp.sz',
 		passwordHash: 'amet cupidatat',
 		roles: [
 			'ADMIN',
 			'READER'
 		]
 	}, {
-		username: 'qui quis',
-		email: 'fUwpRV@OXBlMuRHkVenLqQODZe.sw',
+		username: 'qui quis valid',
+		email: 'fUwpRV@OXdsdas.sw',
 		passwordHash: 'pariatur',
 		roles: [
 			'WRITER',

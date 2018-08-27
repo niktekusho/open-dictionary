@@ -2,6 +2,7 @@ const Docker = require('dockerode');
 const mongodb = require('mongodb');
 const utils = require('../utils');
 const userRepositoryFactory = require('./repository');
+const {fakeUsers, validFakeUsers} = require('./test-utils');
 
 describe('User Repository INTEGRATION TEST (requires Docker)', () => {
 	const localDocker = new Docker();
@@ -29,13 +30,20 @@ describe('User Repository INTEGRATION TEST (requires Docker)', () => {
 
 	let container;
 
+	const logger = {
+		debug: jest.fn(),
+		error: jest.fn(),
+		info: jest.fn()
+	};
+
 	beforeAll(async () => {
 		container = await setup('54321');
 		try {
 			await container.start();
 			console.log('Container started');
-			// Delay
-			return new Promise(resolve => setTimeout(resolve, 1 * 1000));
+			// Delay (default is 2 seconds)
+			const delay = process.env.CONTAINER_DEFAULT_WAIT ? parseInt(process.env.CONTAINER_DEFAULT_WAIT, 10) : 2;
+			return new Promise(resolve => setTimeout(resolve, delay * 1000));
 		} catch (err) {
 			// Log the error and fail the test
 			console.error(err);
@@ -44,14 +52,51 @@ describe('User Repository INTEGRATION TEST (requires Docker)', () => {
 		}
 	});
 
+	afterEach(async () => {
+		// Drop the collection after each test
+		const client = await mongodb.MongoClient.connect(url, {useNewUrlParser: true});
+		const db = await client.db();
+		const collection = await db.collection('users');
+		await collection.drop();
+	});
+
 	it('should connect successfully', async () => {
-		const userRepository = await userRepositoryFactory(mongodb, url, console, utils);
+		const userRepository = await userRepositoryFactory(mongodb, url, logger, utils);
 		expect(userRepository).toBeDefined();
 	});
 
 	it('initially should find 0 users', async () => {
-		const userRepository = await userRepositoryFactory(mongodb, url, console, utils);
-		await expect(userRepository.find()).toBeUndefined();
+		const userRepository = await userRepositoryFactory(mongodb, url, logger, utils);
+		await expect(userRepository.find()).resolves.toBeUndefined();
+	});
+
+	it('inserting an invalid user should fail', async () => {
+		const userRepository = await userRepositoryFactory(mongodb, url, logger, utils);
+		const invalidUser = Object.assign({}, fakeUsers[0]);
+		// Email is a required property: removing that key should make the insertion fail
+		delete invalidUser.email;
+		await expect(userRepository.insert(invalidUser)).rejects.toThrow(expect.any(Error));
+	});
+
+	it('inserting a valid user should succeed', async () => {
+		const userRepository = await userRepositoryFactory(mongodb, url, logger, utils);
+		await expect(userRepository.insert(validFakeUsers[0])).resolves.toBeDefined();
+	});
+
+	it('inserting a duplicate user should fail', async () => {
+		const userRepository = await userRepositoryFactory(mongodb, url, logger, utils);
+		await expect(userRepository.insert(validFakeUsers[0])).resolves.toBeDefined();
+	});
+
+	it('updating user should succeed', async () => {
+		const userRepository = await userRepositoryFactory(mongodb, url, logger, utils);
+		const user = validFakeUsers[0];
+		// First insert
+		await userRepository.insert(user);
+		// Make some change in the user
+		user.roles = ['READER'];
+		// Try to update the user
+		await expect(userRepository.update(user.username, user)).resolves.toBeDefined();
 	});
 
 	afterAll(async () => {
