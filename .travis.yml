@@ -13,10 +13,11 @@ matrix:
       - docker images
   - os: linux
     dist: trusty
-    sudo: required
+    sudo: true
     before_install:
       - docker pull mongo:4.0.0
       - docker images
+      - docker --version
   - os: osx
     script: yarn unit
 services:
