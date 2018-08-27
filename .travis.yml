@@ -1,24 +1,18 @@
 language: node_js
-
+node_js:
+	- "8"
+	- "10"
 cache: yarn
-
-jobs:
-  include:
-  - stage: linux-full-build-node-8
-    os: linux
-    dist: xenial
-    sudo: true
-    node_js:
-      - '8'
-    before_install:
-      - docker pull mongo:4.0.0
-      - docker images
-    services:
-      - docker
-  - stage: linux-full-build-node-8
-    os: linux
-    dist: trusty
-    sudo: false
-  - os: osx
+matrix:
+	include:
+	- os: linux
+		dist: xenial
+		sudo: false
+	- os: linux
+		dist: trusty
+		sudo: false
+	- os: osx
+before-install:
+	- docker pull mongo:4.0.0
 services:
-  - docker
+	- docker
