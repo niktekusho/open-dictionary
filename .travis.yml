@@ -12,3 +12,5 @@ matrix:
     dist: trusty
     sudo: false
   - os: osx
+services:
+  - docker
