@@ -12,7 +12,9 @@ matrix:
     dist: trusty
     sudo: false
   - os: osx
+    scripts: yarn unit
 before-install:
   - docker pull mongo:4.0.0
+  - docker images
 services:
   - docker
