@@ -12,9 +12,6 @@ install:
   - ps: Install-Product node $env:nodejs_version
   # install modules
   - npm install
-  - docker --version
-  - docker pull mongo:4.0
-  - docker images
 
 # Post-install test scripts.
 test_script:
@@ -28,4 +25,4 @@ test_script:
 build: off
 
 services:
-
+  - docker

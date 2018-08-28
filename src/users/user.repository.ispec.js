@@ -6,9 +6,18 @@ const {fakeUsers, validFakeUsers} = require('./test-utils');
 
 describe('User Repository INTEGRATION TEST (requires Docker)', () => {
 	const localDocker = new Docker();
-	async function setup(hostPort) {
+	async function setup(hostPort, mongoImage) {
+		localDocker.pull(mongoImage, (err, stream) => {
+			if (err) {
+				// Log the error and fail the test
+				console.error(err);
+				// eslint-disable-next-line unicorn/no-process-exit
+				process.exit(2);
+			}
+			stream.pipe(process.stdout);
+		});
 		const mongoContainer = await localDocker.createContainer({
-			Image: 'mongo:4.0',
+			Image: mongoImage,
 			Hostconfig: {
 				PortBindings: {
 					'27017/tcp': [{
@@ -37,7 +46,7 @@ describe('User Repository INTEGRATION TEST (requires Docker)', () => {
 	};
 
 	beforeAll(async () => {
-		container = await setup('54321');
+		container = await setup('54321', 'mongo:4.0');
 		try {
 			await container.start();
 			console.log('Container started');
