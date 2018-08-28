@@ -2,28 +2,44 @@ language: node_js
 
 cache: yarn
 
-node_js:
-  - "8"
-  - "10"
-
-matrix:
+jobs:
   include:
-  - os: linux
+  - stage: xenial-full-build-node-8
+    os: linux
     dist: xenial
     sudo: true
+    node: '8'
     before_install:
       - docker pull mongo:4.0.0
       - docker images
     services:
       - docker
-  - os: linux
+  - stage: xenial-full-build-node-10
+    os: linux
+    dist: xenial
+    sudo: true
+    node: '10'
+    services:
+      - docker
+  - stage: trusty-full-build-node-8
+    os: linux
     dist: trusty
     sudo: true
-    before_install:
-      - docker pull mongo:4.0.0
-      - docker images
+    node: '8'
+    services:
+      - docker
+  - stage: trusty-full-build-node-10
+    os: linux
+    dist: trusty
+    sudo: true
+    node: '10'
     services:
       - docker
   - os: osx
     script: yarn unit
+    before_install:
+      - echo 'osX -> disable before install'
 
+before_install:
+  - docker pull mongo:4.0.0
+  - docker images
