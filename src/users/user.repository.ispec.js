@@ -8,7 +8,7 @@ describe('User Repository INTEGRATION TEST (requires Docker)', () => {
 	const localDocker = new Docker();
 	async function setup(hostPort) {
 		const mongoContainer = await localDocker.createContainer({
-			Image: 'mongo:4.0.0',
+			Image: 'mongo:4.0',
 			Hostconfig: {
 				PortBindings: {
 					'27017/tcp': [{

@@ -13,7 +13,7 @@ install:
   # install modules
   - npm install
   - docker --version
-  - docker pull mongo:4.0.0
+  - docker pull mongo:4.0
   - docker images
 
 # Post-install test scripts.
@@ -26,3 +26,6 @@ test_script:
 
 # Don't actually build.
 build: off
+
+services:
+
