@@ -8,7 +8,7 @@ jobs:
     os: linux
     dist: xenial
     sudo: true
-    node:
+    node_js:
       - '8'
     before_install:
       - docker pull mongo:4.0.0
@@ -19,7 +19,7 @@ jobs:
     os: linux
     dist: trusty
     sudo: true
-    node:
+    node_js:
       - '8'
     services:
       - docker
@@ -27,7 +27,7 @@ jobs:
     os: linux
     dist: xenial
     sudo: true
-    node:
+    node_js:
       - '10'
     services:
       - docker
@@ -35,14 +35,14 @@ jobs:
     os: linux
     dist: trusty
     sudo: true
-    node:
+    node_js:
       - '10'
     services:
       - docker
   - stage: osx-no-int-test-build
     os: osx
     script: yarn unit
-    node:
+    node_js:
       - '8'
       - '10'
     before_install:
