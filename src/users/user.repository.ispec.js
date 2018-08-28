@@ -1,56 +1,18 @@
-const Docker = require('dockerode');
 const mongodb = require('mongodb');
 const utils = require('../utils');
 const userRepositoryFactory = require('./repository');
 const {fakeUsers, validFakeUsers} = require('./test-utils');
 
-describe('User Repository INTEGRATION TEST (requires Docker)', () => {
-	const localDocker = new Docker();
-	async function setup(hostPort) {
-		const mongoContainer = await localDocker.createContainer({
-			Image: 'mongo:4.0',
-			Hostconfig: {
-				PortBindings: {
-					'27017/tcp': [{
-						HostPort: hostPort
-					}]
-				}
-			},
-			AttachStdin: false,
-			AttachStdout: true,
-			AttachStderr: true,
-			Tty: true,
-			OpenStdin: false,
-			StdinOnce: false
-		});
-		return mongoContainer;
-	}
-
-	const url = 'mongodb://localhost:54321/users';
-
-	let container;
+describe('User Repository INTEGRATION TEST', () => {
+	const mongoHost = process.env.MONGO_HOST ? process.env.MONGO_HOST : 'localhost';
+	const mongoPort = process.env.MONGO_PORT ? process.env.MONGO_PORT : '54321';
+	const url = `mongodb://${mongoHost}:${mongoPort}/users`;
 
 	const logger = {
 		debug: jest.fn(),
 		error: jest.fn(),
 		info: jest.fn()
 	};
-
-	beforeAll(async () => {
-		container = await setup('54321');
-		try {
-			await container.start();
-			console.log('Container started');
-			// Delay (default is 2 seconds)
-			const delay = process.env.CONTAINER_DEFAULT_WAIT ? parseInt(process.env.CONTAINER_DEFAULT_WAIT, 10) : 2;
-			return new Promise(resolve => setTimeout(resolve, delay * 1000));
-		} catch (err) {
-			// Log the error and fail the test
-			console.error(err);
-			// eslint-disable-next-line unicorn/no-process-exit
-			process.exit(2);
-		}
-	});
 
 	afterEach(async () => {
 		// Drop the collection after each test
@@ -97,12 +59,5 @@ describe('User Repository INTEGRATION TEST (requires Docker)', () => {
 		user.roles = ['READER'];
 		// Try to update the user
 		await expect(userRepository.update(user.username, user)).resolves.toBeDefined();
-	});
-
-	afterAll(async () => {
-		if (container) {
-			await container.stop();
-			await container.remove();
-		}
 	});
 });

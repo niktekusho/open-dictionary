@@ -2,6 +2,9 @@ image: Visual Studio 2017
 
 # Test against the latest 2 lts versions of Node.js
 environment:
+  - MONGO_HOST=localhost
+  - MONGO_PORT=27017
+environment:
   matrix:
   - nodejs_version: "8"
   - nodejs_version: "10"
@@ -12,9 +15,6 @@ install:
   - ps: Install-Product node $env:nodejs_version
   # install modules
   - npm install
-  - docker --version
-  - docker pull mongo:4.0
-  - docker images
 
 # Post-install test scripts.
 test_script:
@@ -28,4 +28,5 @@ test_script:
 build: off
 
 services:
+  - mongodb
 
