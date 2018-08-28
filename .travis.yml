@@ -44,9 +44,15 @@ jobs:
     script: yarn unit
     node_js:
       - '8'
+    before_install:
+      - echo 'osx -> disable before install'
+  - stage: osx-no-int-test-build
+    os: osx
+    script: yarn unit
+    node_js:
       - '10'
     before_install:
-      - echo 'osX -> disable before install'
+      - echo 'osx -> disable before install'
 
 before_install:
   - docker pull mongo:4.0.0
