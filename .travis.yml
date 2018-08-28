@@ -4,7 +4,7 @@ cache: yarn
 
 jobs:
   include:
-  - stage: xenial-full-build-node-8
+  - stage: linux-full-build-node-8
     os: linux
     dist: xenial
     sudo: true
@@ -14,29 +14,33 @@ jobs:
       - docker images
     services:
       - docker
-  - stage: xenial-full-build-node-10
-    os: linux
-    dist: xenial
-    sudo: true
-    node: '10'
-    services:
-      - docker
-  - stage: trusty-full-build-node-8
+  - stage: linux-full-build-node-8
     os: linux
     dist: trusty
     sudo: true
     node: '8'
     services:
       - docker
-  - stage: trusty-full-build-node-10
+  - stage: linux-full-build-node-10
+    os: linux
+    dist: xenial
+    sudo: true
+    node: '10'
+    services:
+      - docker
+  - stage: linux-full-build-node-10
     os: linux
     dist: trusty
     sudo: true
     node: '10'
     services:
       - docker
-  - os: osx
+  - stage: osx-no-int-test-build
+    os: osx
     script: yarn unit
+    node:
+      - '8'
+      - '10'
     before_install:
       - echo 'osX -> disable before install'
 
