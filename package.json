@@ -16,7 +16,8 @@
 		"jest": "^23.4.1",
 		"jest-config": "^23.5.0",
 		"nodemon": "^1.18.3",
-		"xo": "^0.21.1"
+		"xo": "^0.21.1",
+		"yarpm": "^0.2.1"
 	},
 	"engines": {
 		"node": ">=8"
@@ -25,8 +26,8 @@
 		"coverage": "jest --coverage",
 		"lint": "xo",
 		"pretest": "xo",
-		"test": "jest",
-		"preintegration": "xo",
+		"test": "yarpm run unit && yarpm run integration",
+		"unit": "jest",
 		"integration": "jest -c ./jest.config.integration.js",
 		"teststart": "nodemon src/index.js"
 	},

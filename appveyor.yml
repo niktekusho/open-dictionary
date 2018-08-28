@@ -1,3 +1,5 @@
+image: Visual Studio 2017
+
 # Test against the latest 2 lts versions of Node.js
 environment:
   matrix:
@@ -10,6 +12,9 @@ install:
   - ps: Install-Product node $env:nodejs_version
   # install modules
   - npm install
+  - docker --version
+  - docker pull mongo:4.0
+  - docker images
 
 # Post-install test scripts.
 test_script:
@@ -21,3 +26,6 @@ test_script:
 
 # Don't actually build.
 build: off
+
+services:
+
