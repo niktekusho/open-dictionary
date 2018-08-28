@@ -4,6 +4,6 @@ const config = require('./jest.config');
 config.testRegex = 'ispec.js$';
 
 // Set 10 seconds of timeout (Travis being slow...)
-config.setupTestFrameworkScriptFile = './jest.setup.js';
+jest.setTimeout(10 * 1000);
 
 module.exports = config;
