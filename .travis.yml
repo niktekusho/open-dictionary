@@ -8,7 +8,8 @@ jobs:
     os: linux
     dist: xenial
     sudo: true
-    node: '8'
+    node:
+      - '8'
     before_install:
       - docker pull mongo:4.0.0
       - docker images
@@ -18,21 +19,24 @@ jobs:
     os: linux
     dist: trusty
     sudo: true
-    node: '8'
+    node:
+      - '8'
     services:
       - docker
   - stage: linux-full-build-node-10
     os: linux
     dist: xenial
     sudo: true
-    node: '10'
+    node:
+      - '10'
     services:
       - docker
   - stage: linux-full-build-node-10
     os: linux
     dist: trusty
     sudo: true
-    node: '10'
+    node:
+      - '10'
     services:
       - docker
   - stage: osx-no-int-test-build
