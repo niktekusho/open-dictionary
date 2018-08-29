@@ -28,6 +28,7 @@
 		"pretest": "xo",
 		"test": "yarpm run unit && yarpm run integration",
 		"unit": "jest",
+		"preintegration": "node ./scripts/pull-mongo.js",
 		"integration": "jest -c ./jest.config.integration.js",
 		"teststart": "nodemon src/index.js"
 	},

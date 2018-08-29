@@ -1,3 +1,4 @@
+const Docker = require('dockerode');
 const mongodb = require('mongodb');
 const utils = require('../utils');
 const userRepositoryFactory = require('./repository');
@@ -6,15 +7,6 @@ const {fakeUsers, validFakeUsers} = require('./test-utils');
 describe('User Repository INTEGRATION TEST (requires Docker)', () => {
 	const localDocker = new Docker();
 	async function setup(hostPort, mongoImage) {
-		localDocker.pull(mongoImage, (err, stream) => {
-			if (err) {
-				// Log the error and fail the test
-				console.error(err);
-				// eslint-disable-next-line unicorn/no-process-exit
-				process.exit(2);
-			}
-			stream.pipe(process.stdout);
-		});
 		const mongoContainer = await localDocker.createContainer({
 			Image: mongoImage,
 			Hostconfig: {
@@ -57,6 +49,15 @@ describe('User Repository INTEGRATION TEST (requires Docker)', () => {
 			console.error(err);
 			// eslint-disable-next-line unicorn/no-process-exit
 			process.exit(2);
+		}
+	});
+
+	afterAll(async () => {
+		if (container) {
+			await container.stop();
+			console.log('Container stopped');
+			await container.remove();
+			console.log('Container removed');
 		}
 	});
 
