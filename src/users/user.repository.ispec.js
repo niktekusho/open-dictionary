@@ -1,4 +1,3 @@
-const Docker = require('dockerode');
 const mongodb = require('mongodb');
 const utils = require('../utils');
 const userRepositoryFactory = require('./repository');
@@ -106,12 +105,5 @@ describe('User Repository INTEGRATION TEST (requires Docker)', () => {
 		user.roles = ['READER'];
 		// Try to update the user
 		await expect(userRepository.update(user.username, user)).resolves.toBeDefined();
-	});
-
-	afterAll(async () => {
-		if (container) {
-			await container.stop();
-			await container.remove();
-		}
 	});
 });
