@@ -5,8 +5,8 @@ environment:
   - MONGO_HOST=localhost
   - MONGO_PORT=27017
   matrix:
-  - nodejs_version: "8"
-  - nodejs_version: "10"
+    - nodejs_version: "8"
+    - nodejs_version: "10"
 
 # Install scripts. (runs after repo cloning)
 install:
