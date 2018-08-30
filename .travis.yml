@@ -11,10 +11,7 @@ jobs:
     node_js:
       - '8'
     services:
-      - mongodb
-	env:
-  	  - MONGO_HOST=localhost
-      - MONGO_PORT=27017
+      - docker
   - stage: linux-full-build-node-8
     os: linux
     dist: trusty
@@ -22,10 +19,7 @@ jobs:
     node_js:
       - '8'
     services:
-      - mongodb
-	env:
-  	  - MONGO_HOST=localhost
-      - MONGO_PORT=27017
+      - docker
   - stage: linux-full-build-node-10
     os: linux
     dist: xenial
@@ -33,10 +27,7 @@ jobs:
     node_js:
       - '10'
     services:
-      - mongodb
-	env:
-  	  - MONGO_HOST=localhost
-      - MONGO_PORT=27017
+      - docker
   - stage: linux-full-build-node-10
     os: linux
     dist: trusty
@@ -44,10 +35,7 @@ jobs:
     node_js:
       - '10'
     services:
-      - mongodb
-	env:
-  	  - MONGO_HOST=localhost
-      - MONGO_PORT=27017
+      - docker
   - stage: osx-no-int-test-build
     os: osx
     script: yarn unit

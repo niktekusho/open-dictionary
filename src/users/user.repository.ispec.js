@@ -3,10 +3,8 @@ const utils = require('../utils');
 const userRepositoryFactory = require('./repository');
 const {fakeUsers, validFakeUsers} = require('./test-utils');
 
-describe('User Repository INTEGRATION TEST', () => {
-	const mongoHost = process.env.MONGO_HOST ? process.env.MONGO_HOST : 'localhost';
-	const mongoPort = process.env.MONGO_PORT ? process.env.MONGO_PORT : '54321';
-	const url = `mongodb://${mongoHost}:${mongoPort}/users`;
+describe('User Repository INTEGRATION TEST (requires Docker)', () => {
+	const url = 'mongodb://localhost:54321/users';
 
 	const logger = {
 		debug: jest.fn(),
