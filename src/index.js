@@ -2,10 +2,9 @@ const mongodb = require('mongodb');
 const fastify = require('fastify');
 
 const userRepositoryFactory = require('./users/repository');
-const userServiceFactory = require('./users/user-service');
+const userServiceFactory = require('./users/service/user-service');
 const userConfig = require('./config/user-config');
 const utils = require('./utils');
-const errorHandler = require('./error-handler');
 
 const app = fastify({
 	logger: true
@@ -15,7 +14,7 @@ async function main() {
 	const mongoUrl = utils.buildMongoUrl(userConfig);
 	try {
 		const userRepository = await userRepositoryFactory(mongodb, mongoUrl, console, utils);
-		const userService = await userServiceFactory({userRepository, errorHandler});
+		const userService = await userServiceFactory(userRepository, console);
 		app.get('/', async () => {
 			try {
 				return userService.getUsers();
