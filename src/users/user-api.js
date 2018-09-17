@@ -9,8 +9,8 @@ function getAllUsersRoute(app, userService) {
 	app.get('/', async () => {
 		try {
 			return userService.getUsers();
-		} catch (err) {
-			app.log.error(err);
+		} catch (error) {
+			app.log.error(error);
 		}
 	});
 }
@@ -21,8 +21,8 @@ function getByUsernameRoute(app, userService) {
 		let serviceResult = null;
 		try {
 			serviceResult = await userService.findUserByUsername(username);
-		} catch (err) {
-			app.log.error(err);
+		} catch (error) {
+			app.log.error(error);
 			throw new httpErrors.InternalServerError();
 		}
 		if (serviceResult) {
