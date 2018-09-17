@@ -20,9 +20,8 @@ async function main() {
 		app.register(usersRoutes, {prefix: '/users'});
 		const port = 3000;
 		await app.listen(port);
-		app.ready(() => {
-			console.log(app.printRoutes());
-		});
+		await app.ready();
+		app.log.info(app.printRoutes());
 	} catch (error) {
 		app.log.error('Error booting server');
 		app.log.error(error);
