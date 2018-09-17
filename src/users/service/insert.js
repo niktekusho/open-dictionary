@@ -8,9 +8,9 @@ module.exports = async (user, userRepository, logger) => {
 				logger.debug('User service -> Insert -> Valid user passed in');
 				const repositoryResult = await userRepository.insert(user);
 				return repositoryResult;
-			} catch (err) {
+			} catch (error) {
 				logger.debug('User service -> Insert -> Invalid user passed in');
-				throw new Error(`Unexpected repository error.\n${err}`);
+				throw new Error(`Unexpected repository error.\n${error}`);
 			}
 		}
 		throw new Error(`User validation failed:\n${validationResult.errors}`);

@@ -9,9 +9,9 @@ async function handleUpdate(username, updateUser, userRepository, logger) {
 		const res = await userRepository.update(username, updateUser);
 		logger.debug(res);
 		return `User ${username} updated`;
-	} catch (err) {
-		logger.error(err);
-		throw new Error(`User service -> update -> update failed`);
+	} catch (error) {
+		logger.error(error);
+		throw new Error('User service -> update -> update failed');
 	}
 }
 

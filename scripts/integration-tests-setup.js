@@ -8,8 +8,8 @@ async function main() {
 		const container = await start();
 		opts.container.id = container.id;
 		console.log(container.id);
-	} catch (err) {
-		console.error(err);
+	} catch (error) {
+		console.error(error);
 	}
 }
 

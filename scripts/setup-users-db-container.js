@@ -30,9 +30,9 @@ async function start() {
 		const delay = process.env.CONTAINER_DEFAULT_WAIT ? parseInt(process.env.CONTAINER_DEFAULT_WAIT, 10) : 5;
 		// Resolve the promise after the set delay passing in the container just created and started
 		return new Promise(resolve => setTimeout(resolve, delay * 1000, container));
-	} catch (err) {
+	} catch (error) {
 		// Log the error and fail the test
-		console.error(err);
+		console.error(error);
 		// eslint-disable-next-line unicorn/no-process-exit
 		process.exit(2);
 	}

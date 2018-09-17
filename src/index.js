@@ -18,22 +18,22 @@ async function main() {
 		app.get('/', async () => {
 			try {
 				return userService.getUsers();
-			} catch (err) {
-				app.log.error(err);
+			} catch (error) {
+				app.log.error(error);
 			}
 		});
 		const port = 3000;
 		await app.listen(port);
-	} catch (err) {
+	} catch (error) {
 		app.log.error('Error booting server');
-		app.log.error(err);
+		app.log.error(error);
 		// eslint-disable-next-line unicorn/no-process-exit
 		process.exit(1);
 	}
 }
 
-main().catch(err => {
-	console.error(err);
+main().catch(error => {
+	console.error(error);
 	// eslint-disable-next-line unicorn/no-process-exit
 	process.exit(1);
 });

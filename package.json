@@ -38,7 +38,8 @@
 			"node"
 		],
 		"rules": {
-			"capitalized-comments": "warn"
+			"capitalized-comments": "warn",
+			"require-await": "off"
 		}
 	}
 }

@@ -52,8 +52,8 @@ describe('User service -> \'Delete\' test suite', () => {
 				};
 				try {
 					await deleteUser(currentUser, username, userRepository, logger);
-				} catch (err) {
-					expect(err).toMatchObject(expect.any(Error));
+				} catch (error) {
+					expect(error).toMatchObject(expect.any(Error));
 				}
 				expect(userRepository.delete).toHaveBeenCalledTimes(0);
 			});

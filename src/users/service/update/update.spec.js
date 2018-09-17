@@ -39,9 +39,9 @@ describe('User service -> \'Update\' test suite', () => {
 				.mockImplementationOnce(() => Promise.reject(new Error()));
 			try {
 				await updateUser(currentUser, userToUpdate, userRepository, logger);
-			} catch (err) {
-				expect(err).toMatchObject(expect.any(Error));
-				expect(err.message).toMatch(/(.*)failed(.*)/i);
+			} catch (error) {
+				expect(error).toMatchObject(expect.any(Error));
+				expect(error.message).toMatch(/(.*)failed(.*)/i);
 			}
 			expect(userRepository.update).toHaveBeenCalledTimes(1);
 		});
@@ -51,7 +51,7 @@ describe('User service -> \'Update\' test suite', () => {
 				.mockImplementationOnce(() => Promise.reject(new Error()));
 			try {
 				await updateUser(currentUser, userToUpdate, userRepository, logger);
-			} catch (err) {
+			} catch (error) {
 				expect(logger.error).toHaveBeenCalledTimes(1);
 			}
 		});
@@ -61,13 +61,13 @@ describe('User service -> \'Update\' test suite', () => {
 		it('should reject to update no-matter-what', async () => {
 			try {
 				await expect(updateUser(null, {}, userRepository, logger));
-			} catch (err) {
-				expect(err).toMatchObject(expect.any(Error));
+			} catch (error) {
+				expect(error).toMatchObject(expect.any(Error));
 			}
 			try {
 				await expect(updateUser(undefined, {}, userRepository, logger));
-			} catch (err) {
-				expect(err).toMatchObject(expect.any(Error));
+			} catch (error) {
+				expect(error).toMatchObject(expect.any(Error));
 			}
 			expect(userRepository.update).toHaveBeenCalledTimes(0);
 		});
@@ -108,8 +108,8 @@ describe('User service -> \'Update\' test suite', () => {
 				};
 				try {
 					await updateUser(currentUser, fakeUsers[0], userRepository, logger);
-				} catch (err) {
-					expect(err).toMatchObject(expect.any(Error));
+				} catch (error) {
+					expect(error).toMatchObject(expect.any(Error));
 				}
 				expect(userRepository.update).toHaveBeenCalledTimes(0);
 			});

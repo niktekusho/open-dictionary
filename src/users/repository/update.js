@@ -13,7 +13,7 @@ module.exports = async ({username, newUser}, logger, collection) => {
 	try {
 		const updatedUser = await collection.findOneAndUpdate({username}, {$set: newUser});
 		return updatedUser;
-	} catch (err) {
-		throw new Error(`Update failed: ${err.message}`);
+	} catch (error) {
+		throw new Error(`Update failed: ${error.message}`);
 	}
 };

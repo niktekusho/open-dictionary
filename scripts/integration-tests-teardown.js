@@ -12,8 +12,8 @@ async function main() {
 			try {
 				await stopContainer(container);
 				await deleteContainer(container);
-			} catch (err) {
-				console.error(err);
+			} catch (error) {
+				console.error(error);
 			}
 		} else {
 			console.warn(`No container found with id: ${id}`);

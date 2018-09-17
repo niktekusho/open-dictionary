@@ -32,7 +32,7 @@ describe('User Repository INTEGRATION TEST (requires Docker)', () => {
 
 	it('inserting an invalid user should fail', async () => {
 		const userRepository = await userRepositoryFactory(mongodb, url, logger, utils);
-		const invalidUser = Object.assign({}, fakeUsers[0]);
+		const invalidUser = {...fakeUsers[0]};
 		// Email is a required property: removing that key should make the insertion fail
 		delete invalidUser.email;
 		await expect(userRepository.insert(invalidUser)).rejects.toThrow(expect.any(Error));

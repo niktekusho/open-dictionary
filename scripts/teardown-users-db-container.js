@@ -7,8 +7,8 @@ async function stopContainer(container) {
 	try {
 		await container.stop();
 		console.log('Container stopped');
-	} catch (err) {
-		console.error('Could not stop container', err);
+	} catch (error) {
+		console.error('Could not stop container', error);
 	}
 }
 
@@ -20,8 +20,8 @@ async function deleteContainer(container) {
 	try {
 		await container.remove();
 		console.log('Container deleted');
-	} catch (err) {
-		console.error('Could not delete container', err);
+	} catch (error) {
+		console.error('Could not delete container', error);
 	}
 }
 

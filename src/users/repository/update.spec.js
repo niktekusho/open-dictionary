@@ -25,8 +25,8 @@ describe('User repository -> \'Update\' test suite', () => {
 			it('rejection error should give the appropriate reason', async () => {
 				try {
 					await update(generateUserParam(null, {}), null, null);
-				} catch (err) {
-					expect(err.message).toMatch(/^(Update failed).*(username)*.$/gi);
+				} catch (error) {
+					expect(error.message).toMatch(/^(Update failed).*(username)*.$/gi);
 				}
 			});
 		});
@@ -44,8 +44,8 @@ describe('User repository -> \'Update\' test suite', () => {
 			it('rejection error should give the appropriate reason', async () => {
 				try {
 					await update(generateUserParam('test', undefined), null, null);
-				} catch (err) {
-					expect(err.message).toMatch(/^(Update failed).*(entity)*.$/gi);
+				} catch (error) {
+					expect(error.message).toMatch(/^(Update failed).*(entity)*.$/gi);
 				}
 			});
 		});
