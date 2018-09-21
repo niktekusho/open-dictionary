@@ -3,7 +3,9 @@
 	"type": "object",
 	"properties": {
 		"username": {
-			"type": "string"
+			"type": "string",
+			"minLength": 5,
+			"maxLength": 16
 		},
 		"fullname": {
 			"type": ["string", "null"]
