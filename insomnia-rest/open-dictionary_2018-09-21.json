@@ -1,0 +1,72 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2018-09-21T08:36:16.640Z",
+	"__export_source": "insomnia.desktop.app:v6.0.2",
+	"resources": [
+		{
+			"_id": "wrk_8b6c4e33f7c64ab7a5a5d291a4268b14",
+			"created": 1537518836511,
+			"description": "",
+			"modified": 1537518836511,
+			"name": "open-dictionary",
+			"parentId": null,
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_6fb495b872dc4dff8e35700c29b0f69d",
+			"color": null,
+			"created": 1537518836538,
+			"data": {},
+			"isPrivate": false,
+			"metaSortKey": 1537518836538,
+			"modified": 1537518836538,
+			"name": "New Environment",
+			"parentId": "wrk_8b6c4e33f7c64ab7a5a5d291a4268b14",
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_eeed78b1b63b48d19a23c0204f4dc9bd",
+			"cookies": [],
+			"created": 1537518836544,
+			"modified": 1537518836544,
+			"name": "Default Jar",
+			"parentId": "wrk_8b6c4e33f7c64ab7a5a5d291a4268b14",
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "fld_3765a664e309423c94ccd6006b81323c",
+			"created": 1537518865953,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1535033789124.25,
+			"modified": 1537518865968,
+			"name": "open-dictionary",
+			"parentId": "wrk_8b6c4e33f7c64ab7a5a5d291a4268b14",
+			"_type": "request_group"
+		},
+		{
+			"_id": "req_a77503aca3eb42b093980f03aa3d3326",
+			"authentication": {},
+			"body": {},
+			"created": 1537518865958,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1537518785360,
+			"method": "GET",
+			"modified": 1537518924831,
+			"name": "All users",
+			"parameters": [],
+			"parentId": "fld_3765a664e309423c94ccd6006b81323c",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:3000/users",
+			"_type": "request"
+		}
+	]
+}

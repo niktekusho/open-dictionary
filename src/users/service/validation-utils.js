@@ -1,4 +1,4 @@
-const {validate} = require('isemail');
+const {validate: validateMail} = require('isemail');
 const Ajv = require('ajv');
 
 const {UserRole} = require('../user');
@@ -19,7 +19,7 @@ module.exports = (() => {
 
 	return {
 		isAdmin: user => user.roles.indexOf(UserRole.ADMIN) !== -1,
-		isValidEmail: email => validate(email),
+		isValidEmail: email => validateMail(email),
 		isValidUser: user => {
 			const isValid = lazyValidate()(user);
 			// Build the basic object which tells if the user is valid or not

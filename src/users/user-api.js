@@ -34,9 +34,24 @@ function getByUsernameRoute(app, userService) {
 }
 
 function createUserRoute(app, userService) {
-	app.post('/', async () => {
-		userService.test = 'TODO';
-		return 'In the making!';
+	app.post('/', async (req, res) => {
+		const {body} = req;
+		try {
+			await userService.createUser(body);
+			return {
+				msg: 'User created'
+			};
+		} catch (error) {
+			app.log.error(error);
+			let statusCode;
+			// TODO temporary error handling
+			if (error.type && error.type === 'client') {
+				statusCode = 406;
+			} else {
+				statusCode = 500;
+			}
+			return res.code(statusCode).send(error.details);
+		}
 	});
 }
 

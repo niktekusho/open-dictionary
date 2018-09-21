@@ -13,7 +13,10 @@ module.exports = async (user, userRepository, logger) => {
 				throw new Error(`Unexpected repository error.\n${error}`);
 			}
 		}
-		throw new Error(`User validation failed:\n${validationResult.errors}`);
+		const error = new Error('User validation failed');
+		error.type = 'client';
+		error.details = validationResult.details.map(detail => `User ${detail.message}`);
+		throw error;
 	}
 	logger.debug('User service -> Insert -> Undefined user passed in');
 	throw new Error('Inserting undefined user');
