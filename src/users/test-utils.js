@@ -10,7 +10,7 @@ module.exports = {
 		]
 	},
 	{
-		username: 'qui quis',
+		username: 'qui_quis',
 		email: 'fUwpRV@OXBlMuRHkVenLqQODZe.sw',
 		passwordHash: 'pariatur',
 		roles: [
@@ -19,7 +19,7 @@ module.exports = {
 		]
 	}],
 	validFakeUsers: [{
-		username: 'veniam ca',
+		username: 'veniam_ca',
 		email: 'ssaa@rNaCqgnQxp.sz',
 		passwordHash: 'amet cupidatat',
 		roles: [
@@ -27,7 +27,7 @@ module.exports = {
 			'READER'
 		]
 	}, {
-		username: 'qui quis valid',
+		username: 'qui_quis_valid',
 		email: 'fUwpRV@OXdsdas.sw',
 		passwordHash: 'pariatur',
 		roles: [

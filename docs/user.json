@@ -5,7 +5,8 @@
 		"username": {
 			"type": "string",
 			"minLength": 5,
-			"maxLength": 16
+			"maxLength": 16,
+			"pattern": "^\\w+$"
 		},
 		"fullname": {
 			"type": ["string", "null"]

@@ -9,7 +9,7 @@ function init(userRepository, logger) {
 		deleteUser: (currentUser, username) => _delete(currentUser, username, userRepository, logger),
 		findUserByEmail: (email, projection) => find.findByEmail(userRepository, email, projection, logger),
 		findUserByUsername: (username, projection) => find.findByUsername(userRepository, username, projection, logger),
-		getUsers: () => userRepository.find(),
+		getUsers: () => userRepository.find({}, userRepository.projections.minimal),
 		updateUser: (currentUser, userData) => _update(currentUser, userData, userRepository, logger)
 	};
 }
