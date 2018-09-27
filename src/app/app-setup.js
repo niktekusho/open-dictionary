@@ -1,5 +1,6 @@
 const fastifyPlugin = require('fastify-plugin');
 const mongodb = require('mongodb');
+const httpErrors = require('http-errors');
 
 const userRepositoryFactory = require('../users/repository');
 const userServiceFactory = require('../users/service/user-service');
@@ -12,6 +13,7 @@ async function setup(fastify, opts, next) {
 	fastify.decorate('userRepository', userRepository);
 	const userService = await userServiceFactory(userRepository, console);
 	fastify.decorate('userService', userService);
+	fastify.decorate('httpErrors', httpErrors);
 	next();
 }
 
