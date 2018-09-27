@@ -1,37 +1,27 @@
 const mongodb = require('mongodb');
 const fastify = require('fastify');
 
-const userRepositoryFactory = require('./users/repository');
-const userServiceFactory = require('./users/service/user-service');
-const userAPI = require('./users/user-api');
-const userConfig = require('./config/user-config');
-const utils = require('./utils');
+const usersSetupPlugin = require('./app/app-setup');
+const usersAPIPlugin = require('./app/app-users');
 
 const app = fastify({
 	logger: true
 });
 
-async function main() {
-	const mongoUrl = utils.buildMongoUrl(userConfig);
-	try {
-		const userRepository = await userRepositoryFactory(mongodb, mongoUrl, console, utils);
-		const userService = await userServiceFactory(userRepository, console);
-		const usersRoutes = userAPI(userService);
-		app.register(usersRoutes, {prefix: '/users'});
-		const port = 3000;
-		await app.listen(port);
-		await app.ready();
-		app.log.info(app.printRoutes());
-	} catch (error) {
-		app.log.error('Error booting server');
-		app.log.error(error);
-		// eslint-disable-next-line unicorn/no-process-exit
+app
+	.register(usersSetupPlugin)
+	.register(usersAPIPlugin);
+
+app.ready(async (err) => {
+	if (err) {
+		console.error(`Could not boot server: ${err.message}`);
+		console.debug(err.stack);
+		console.info('Aborting startup...');
+		process.kill(process.pid, 'SIGTERM');
 		process.exit(1);
 	}
-}
-
-main().catch(error => {
-	console.error(error);
-	// eslint-disable-next-line unicorn/no-process-exit
-	process.exit(1);
+	const port = 3000;
+	app.listen(port,
+		() => console.info(app.printRoutes())
+	);
 });

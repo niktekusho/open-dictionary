@@ -1500,6 +1500,12 @@ fast-safe-stringify@^1.0.8, fast-safe-stringify@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-1.2.3.tgz#9fe22c37fb2f7f86f06b8f004377dbf8f1ee7bc1"
 
+fastify-plugin@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-1.2.1.tgz#77bd6c517de0096bf26deb28d1b7c87080c1ba59"
+  dependencies:
+    semver "^5.5.0"
+
 fastify@^1.11.2:
   version "1.11.2"
   resolved "https://registry.yarnpkg.com/fastify/-/fastify-1.11.2.tgz#7495c8134e21e13dccd6bc6b5d036f187faa276e"
