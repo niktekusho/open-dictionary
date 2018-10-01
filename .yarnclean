@@ -43,3 +43,6 @@ wercker.yml
 
 # misc
 *.md
+
+# Add exception for jest coverage stuff
+!istanbul-reports/lib/html/assets
