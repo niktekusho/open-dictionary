@@ -16,6 +16,6 @@ module.exports = async function (fastify) {
 			return serviceResult;
 		}
 		// User not found
-		throw new httpErrors.NotFound();
+		throw new httpErrors.NotFound(`User with username ${username} not found.`);
 	});
 };

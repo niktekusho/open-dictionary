@@ -9,7 +9,7 @@ const app = fastify({
 
 app
 	.register(usersSetupPlugin)
-	.register(usersAPIPlugin);
+	.register(usersAPIPlugin, {prefix: '/users'});
 
 app.ready(async err => {
 	if (err) {
