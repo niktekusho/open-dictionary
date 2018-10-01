@@ -2,9 +2,11 @@ const find = require('./find/find');
 const _update = require('./update/update');
 const _delete = require('./delete');
 const _insert = require('./insert');
+const _authenticate = require('./auth/authenticate');
 
 function init(userRepository, logger) {
 	return {
+		authenticate: (username, password) => _authenticate(userRepository, logger, username, password),
 		createUser: userData => _insert(userData, userRepository, logger),
 		deleteUser: (currentUser, username) => _delete(currentUser, username, userRepository, logger),
 		findUserByEmail: (email, projection) => find.findByEmail(userRepository, email, projection, logger),
