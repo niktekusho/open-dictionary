@@ -15,7 +15,6 @@ async function plugin(fastify, opts, next) {
 		.register(createUserRoute, opts)
 		.register(getUserRoute, opts);
 
-
 	fastify.setNotFoundHandler((req, res) => {
 		const {username} = req.params;
 		const {httpErrors} = fastify;
