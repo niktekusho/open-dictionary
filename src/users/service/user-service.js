@@ -2,7 +2,7 @@ const find = require('./find/find');
 const _update = require('./update/update');
 const _delete = require('./delete');
 const _insert = require('./insert');
-const _authenticate = require('./auth/authenticate');
+const _authenticate = require('./auth/authenticate-user');
 
 function init(userRepository, logger) {
 	return {

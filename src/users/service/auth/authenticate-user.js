@@ -1,6 +1,6 @@
 const hashPassword = require('./hash-password');
 
-function authErrorFactory() {
+function createAuthError() {
 	const error = new Error('Authentication error');
 	return error;
 }
@@ -14,7 +14,7 @@ async function authenticate(userRepository, logger, username, password) {
 	} catch (error) {
 		// Otherwise log the error and throw a generic authentication error
 		logger.error(`User with username ${username} not found`, error);
-		throw authErrorFactory();
+		throw createAuthError();
 	}
 
 	// Here user must be defined
@@ -25,7 +25,7 @@ async function authenticate(userRepository, logger, username, password) {
 	if (passwordHash === user.passwordHash) {
 		return true;
 	}
-	throw authErrorFactory();
+	throw createAuthError();
 }
 
 module.exports = authenticate;
