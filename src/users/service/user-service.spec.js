@@ -62,7 +62,7 @@ describe('User service -> \'Factory\' test suite', () => {
 			expect(userService.createUser).toBeDefined();
 			await userService.createUser({});
 			expect(insertUser).toHaveBeenCalledTimes(1);
-			expect(insertUser).toHaveBeenCalledWith({}, userRepositoryMock, loggerMock);
+			expect(insertUser).toHaveBeenCalledWith({}, userRepositoryMock, loggerMock, expect.any(Function));
 		});
 
 		it('the returned object should contain the update feature', async () => {

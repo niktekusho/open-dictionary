@@ -24,9 +24,12 @@ async function setup(fastify, opts, next) {
 	fastify.decorate('httpErrors', httpErrors);
 
 	// Use a sane JWT secret... even though it SHOULD USE the env var!
-	const secret = process.env.OD_SECRET | 'open_Dictionary|Secret:0';
+	const secret = process.env.OD_SECRET || 'open_Dictionary|Secret:0';
+	const jwtOpts = {
+		secret
+	};
 	fastify
-		.register(fastifyJWT, {secret})
+		.register(fastifyJWT, jwtOpts)
 		.register(fastifyAuth);
 
 	next();

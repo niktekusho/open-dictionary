@@ -15,3 +15,7 @@ This is the variable that contains the port on which the user database is runnin
 ## `OD_USER_DB_NAME`
 
 This is the variable that contains the name of the database the user service must use (MongoDB server).
+
+## `OD_ADMIN_PSW`
+
+This is the variable that contains the password of the demo 'admin' user. Useful for testing.

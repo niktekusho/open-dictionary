@@ -1,10 +1,11 @@
 const {isValidUser} = require('./validation-utils');
 
-module.exports = async (user, userRepository, logger) => {
+module.exports = async (user, userRepository, logger, hash) => {
 	if (user) {
 		const validationResult = isValidUser(user);
 		if (validationResult.valid) {
 			try {
+				user.passwordHash = hash(user.password);
 				logger.debug('User service -> Insert -> Valid user passed in');
 				const repositoryResult = await userRepository.insert(user);
 				return repositoryResult;

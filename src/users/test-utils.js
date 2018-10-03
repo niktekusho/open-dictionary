@@ -2,7 +2,7 @@ module.exports = {
 	fakeUsers: [{
 		username: 'veniam',
 		email: 'Mx8E3H4TVr@rNaCqgnQxp.sz',
-		passwordHash: 'amet cupidatat',
+		password: 'amet cupidatat',
 		roles: [
 			'ADMIN',
 			'ADMIN',
@@ -12,7 +12,7 @@ module.exports = {
 	{
 		username: 'qui_quis',
 		email: 'fUwpRV@OXBlMuRHkVenLqQODZe.sw',
-		passwordHash: 'pariatur',
+		password: 'pariatur',
 		roles: [
 			'ADMIN',
 			'ADMIN'
@@ -21,7 +21,7 @@ module.exports = {
 	validFakeUsers: [{
 		username: 'veniam_ca',
 		email: 'ssaa@rNaCqgnQxp.sz',
-		passwordHash: 'amet cupidatat',
+		password: 'amet cupidatat',
 		roles: [
 			'ADMIN',
 			'READER'
@@ -29,7 +29,7 @@ module.exports = {
 	}, {
 		username: 'qui_quis_valid',
 		email: 'fUwpRV@OXdsdas.sw',
-		passwordHash: 'pariatur',
+		password: 'pariatur',
 		roles: [
 			'WRITER',
 			'REVIEWER'
