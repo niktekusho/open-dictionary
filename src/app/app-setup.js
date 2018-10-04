@@ -4,6 +4,8 @@ const httpErrors = require('http-errors');
 const fastifyJWT = require('fastify-jwt');
 const fastifyAuth = require('fastify-auth');
 
+const errors = require('../errors');
+
 const userRepositoryFactory = require('../users/repository');
 const userServiceFactory = require('../users/service/user-service');
 const userConfig = require('../config/user-config');
@@ -22,6 +24,14 @@ async function setup(fastify, opts, next) {
 
 	// Add the http-errors module to the fastify instance
 	fastify.decorate('httpErrors', httpErrors);
+
+	// Add the common errors factory functions
+	fastify.decorate('errors', errors);
+
+	fastify.decorate('userServiceBootstrapError',
+		errors.createServerError(null, 'User Service must be initialized before the application starts.')
+	);
+
 
 	// Use a sane JWT secret... even though it SHOULD USE the env var!
 	const secret = process.env.OD_SECRET || 'open_Dictionary|Secret:0';

@@ -1,9 +1,11 @@
-module.exports = async function (fastify) {
-	const {userService} = fastify;
+module.exports = async function (fastify, opts) {
+	const {userServiceBootstrapError, errors, userService} = fastify;
 	if (userService === null || userService === undefined) {
-		throw new Error('User Service must be initialized before the application starts.');
+		throw userServiceBootstrapError;
 	}
-	fastify.post('/', async (req, res) => {
+	// if opts contains a prefix, use that without additional resources
+	const route = (opts && opts.prefix) ? '/' : '/register';
+	fastify.post(route, async (req, res) => {
 		const {body} = req;
 		try {
 			await userService.createUser(body);

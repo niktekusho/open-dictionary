@@ -1,7 +1,7 @@
 module.exports = async function (fastify) {
-	const {userService, jwt} = fastify;
+	const {userServiceBootstrapError, errors, jwt, userService} = fastify;
 	if (userService === null || userService === undefined) {
-		throw new Error('User Service must be initialized before the application starts.');
+		throw userServiceBootstrapError;
 	}
 	fastify.post('/login', async (req, res) => {
 		const {username, password} = req.body;
@@ -19,9 +19,10 @@ module.exports = async function (fastify) {
 		};
 		// async JWT token creation
 		return new Promise((resolve, reject) => {
-			jwt.sign(tokenData, tokenOpts, (err, jwtToken) => {
-				if (err) {
-					reject(err);
+			jwt.sign(tokenData, tokenOpts, (error, jwtToken) => {
+				if (error) {
+					const serverError = errors.createServerError(error, 'JWT signing failed');
+					reject(serverError);
 				}
 				resolve(jwtToken);
 			});
