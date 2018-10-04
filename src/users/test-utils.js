@@ -34,5 +34,8 @@ module.exports = {
 			'WRITER',
 			'REVIEWER'
 		]
-	}]
+	}],
+	toUserRepositoryData(user) {
+		return {...user, passwordHash: user.password};
+	}
 };

@@ -18,6 +18,9 @@ describe('User service -> \'Insert\' test suite', () => {
 		debug: jest.fn()
 	};
 
+	// Hash function is just an identity function for test purposes
+	const hashMock = jest.fn(i => i);
+
 	afterEach(() => {
 		userRepository
 			.insert
@@ -30,7 +33,7 @@ describe('User service -> \'Insert\' test suite', () => {
 		it('insert should reject when an user is not passed in', async () => {
 			// #1: Check for null
 			try {
-				await insert(null, userRepository, logger);
+				await insert(null, userRepository, logger, hashMock);
 			} catch (error) {
 				expect(error).toEqual(expect.any(Error));
 				expect(error.message).toMatch(/(.*)((user.*undefined)|(undefined.*user))/gi);
@@ -38,7 +41,7 @@ describe('User service -> \'Insert\' test suite', () => {
 
 			// #2: Check for undefined
 			try {
-				await insert(undefined, userRepository, logger);
+				await insert(undefined, userRepository, logger, hashMock);
 			} catch (error) {
 				expect(error).toEqual(expect.any(Error));
 				expect(error.message).toMatch(/(.*)((user.*undefined)|(undefined.*user))(.*)/gi);
@@ -51,7 +54,7 @@ describe('User service -> \'Insert\' test suite', () => {
 		it('insert should reject when an invalid user is passed in', async () => {
 			// #1: Check for invalid user
 			try {
-				await insert(fakeUsers[0], userRepository, logger);
+				await insert(fakeUsers[0], userRepository, logger, hashMock);
 			} catch (error) {
 				expect(error).toEqual(expect.any(Error));
 				expect(error.message).toMatch(/(.*)((user.*validation)|(validation.*user))(.*)/gi);
@@ -66,7 +69,7 @@ describe('User service -> \'Insert\' test suite', () => {
 				.insert
 				.mockImplementationOnce(Promise.reject);
 			try {
-				await insert(validFakeUsers[0], userRepository, logger);
+				await insert(validFakeUsers[0], userRepository, logger, hashMock);
 			} catch (error) {
 				expect(error).toEqual(expect.any(Error));
 				expect(error.message).toMatch(/(.*)(unexpected)(.*)/gi);
@@ -77,7 +80,7 @@ describe('User service -> \'Insert\' test suite', () => {
 		});
 
 		it('insert should resolve when everything goes well', async () => {
-			await expect(insert(validFakeUsers[0], userRepository, logger))
+			await expect(insert(validFakeUsers[0], userRepository, logger, hashMock))
 				.resolves
 				.toEqual(true);
 			expect(userRepository.insert).toHaveBeenCalledTimes(1);

@@ -19,9 +19,11 @@ module.exports = async function (fastify) {
 		};
 		// async JWT token creation
 		return new Promise((resolve, reject) => {
-			jwt.sign(tokenData, null, tokenOpts, () => {
-				console.log(arguments);
-				resolve(true);
+			jwt.sign(tokenData, tokenOpts, (err, jwtToken) => {
+				if (err) {
+					reject(err);
+				}
+				resolve(jwtToken);
 			});
 		});
 	});

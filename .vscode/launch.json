@@ -35,6 +35,21 @@
 				"<node_internals>/**/*.js",
 				"${workspaceFolder}/node_modules/**/*.js"
 			]
-		}
+		},
+		{
+			"name": "Debug Jest Integration Tests (Windows)",
+			"type": "node",
+			"request": "launch",
+			"runtimeArgs": [
+			  "--inspect-brk",
+			  "${workspaceRoot}/node_modules/jest/bin/jest.js",
+			  "--runInBand",
+			  "-c",
+			  "${workspaceFolder}/jest.config.integration.js"
+			],
+			"console": "integratedTerminal",
+			"internalConsoleOptions": "neverOpen",
+			"port": 9229
+		  }
 	]
 }

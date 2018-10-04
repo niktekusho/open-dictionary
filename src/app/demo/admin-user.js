@@ -1,13 +1,13 @@
 const fastifyPlugin = require('fastify-plugin');
 
 async function plugin(fastify, opts, next) {
-	const {userService, fastifyJwt} = fastify;
+	const {userService} = fastify;
 	if (userService === null || userService === undefined) {
 		throw new Error('User Service must be initialized before the application starts.');
 	}
 
 	const adminUser = {
-		username:'admin',
+		username: 'admin',
 		email: 'test@user.org',
 		password: process.env.OD_ADMIN_PSW || 'admin',
 		roles: ['ADMIN']
@@ -24,7 +24,7 @@ async function plugin(fastify, opts, next) {
 	// If the user is already here, skip the rest
 	if (existingAdmin === null || existingAdmin === undefined) {
 		try {
-			await userService.createUser(adminUser)
+			await userService.createUser(adminUser);
 		} catch (error) {
 			fastify.log.error('Could not create demo admin user');
 		}
