@@ -1,8 +1,5 @@
 module.exports = async function (fastify, opts) {
-	const {userServiceBootstrapError, errors, userService} = fastify;
-	if (userService === null || userService === undefined) {
-		throw userServiceBootstrapError;
-	}
+	const {errors, userService} = fastify;
 	// if opts contains a prefix, use that without additional resources
 	const route = (opts && opts.prefix) ? '/' : '/register';
 	fastify.post(route, async (req, res) => {

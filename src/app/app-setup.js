@@ -28,11 +28,6 @@ async function setup(fastify, opts, next) {
 	// Add the common errors factory functions
 	fastify.decorate('errors', errors);
 
-	fastify.decorate('userServiceBootstrapError',
-		errors.createServerError(null, 'User Service must be initialized before the application starts.')
-	);
-
-
 	// Use a sane JWT secret... even though it SHOULD USE the env var!
 	const secret = process.env.OD_SECRET || 'open_Dictionary|Secret:0';
 	const jwtOpts = {

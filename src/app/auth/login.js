@@ -1,8 +1,5 @@
 module.exports = async function (fastify) {
-	const {userServiceBootstrapError, errors, jwt, userService} = fastify;
-	if (userService === null || userService === undefined) {
-		throw userServiceBootstrapError;
-	}
+	const {errors, jwt, userService} = fastify;
 	fastify.post('/login', async (req, res) => {
 		const {username, password} = req.body;
 		try {

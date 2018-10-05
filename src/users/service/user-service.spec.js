@@ -4,13 +4,13 @@ const userServiceFactory = require('./user-service');
 const find = require('./find/find');
 const update = require('./update/update');
 const deleteUser = require('./delete');
-const insertUser = require('./insert');
+const insertUser = require('./insert/insert');
 
 // Mock them all!
 jest.mock('./find/find');
 jest.mock('./update/update');
 jest.mock('./delete');
-jest.mock('./insert');
+jest.mock('./insert/insert');
 
 describe('User service -> \'Factory\' test suite', () => {
 	describe('Evaluating exported module', () => {

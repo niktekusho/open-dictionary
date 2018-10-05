@@ -1,4 +1,4 @@
-const {validFakeUsers, fakeUsers} = require('../test-utils');
+const {validFakeUsers, fakeUsers} = require('../../../test-utils');
 const insert = require('./insert');
 
 describe('User service -> \'Insert\' test suite', () => {
@@ -10,7 +10,12 @@ describe('User service -> \'Insert\' test suite', () => {
 
 	// ### MOCKS User repository mock
 	const userRepository = {
-		insert: jest.fn(async () => true)
+		insert: jest.fn(async () => true),
+		find: jest.fn(Promise.resolve),
+		queries: {
+			userExists: jest.fn(Promise.resolve),
+			equalsUsername: jest.fn(Promise.resolve)
+		}
 	};
 
 	// Logger mock
@@ -36,7 +41,7 @@ describe('User service -> \'Insert\' test suite', () => {
 				await insert(null, userRepository, logger, hashMock);
 			} catch (error) {
 				expect(error).toEqual(expect.any(Error));
-				expect(error.message).toMatch(/(.*)((user.*undefined)|(undefined.*user))/gi);
+				expect(error.message).toMatch(/(.*)(validation failed)/gi);
 			}
 
 			// #2: Check for undefined
@@ -44,7 +49,7 @@ describe('User service -> \'Insert\' test suite', () => {
 				await insert(undefined, userRepository, logger, hashMock);
 			} catch (error) {
 				expect(error).toEqual(expect.any(Error));
-				expect(error.message).toMatch(/(.*)((user.*undefined)|(undefined.*user))(.*)/gi);
+				expect(error.message).toMatch(/(.*)((validation failed))(.*)/gi);
 			}
 			// #3: Check that the repository is not called when the parameter is not
 			// specified
@@ -53,13 +58,7 @@ describe('User service -> \'Insert\' test suite', () => {
 
 		it('insert should reject when an invalid user is passed in', async () => {
 			// #1: Check for invalid user
-			try {
-				await insert(fakeUsers[0], userRepository, logger, hashMock);
-			} catch (error) {
-				expect(error).toEqual(expect.any(Error));
-				expect(error.message).toMatch(/(.*)((user.*validation)|(validation.*user))(.*)/gi);
-			}
-
+			await expect(insert(fakeUsers[0], userRepository, logger, hashMock)).rejects.toThrowError(/(.*)(validation failed)(.*)/gi);
 			// #2: Check that the repository is not called when the user is not specified
 			expect(userRepository.insert).toHaveBeenCalledTimes(0);
 		});
@@ -67,13 +66,8 @@ describe('User service -> \'Insert\' test suite', () => {
 		it('insert should reject when the repository fails', async () => {
 			userRepository
 				.insert
-				.mockImplementationOnce(Promise.reject);
-			try {
-				await insert(validFakeUsers[0], userRepository, logger, hashMock);
-			} catch (error) {
-				expect(error).toEqual(expect.any(Error));
-				expect(error.message).toMatch(/(.*)(unexpected)(.*)/gi);
-			}
+				.mockImplementationOnce(() => Promise.reject());
+			await expect(insert(validFakeUsers[0], userRepository, logger, hashMock)).rejects.toThrowError();
 
 			// #2: Check that the repository is not called when the user is not specified
 			expect(userRepository.insert).toHaveBeenCalledTimes(1);

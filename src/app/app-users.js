@@ -5,11 +5,6 @@ const createUserRoute = require('./auth/register');
 const getUserRoute = require('./users/get-user');
 
 async function plugin(fastify, opts, next) {
-	const {errors, userService} = fastify;
-	if (userService === null || userService === undefined) {
-		throw new Error('User Service must be initialized before the application starts.');
-	}
-
 	fastify
 		.register(getAllUsersRoute, opts)
 		.register(createUserRoute, opts)

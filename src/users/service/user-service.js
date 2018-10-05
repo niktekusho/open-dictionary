@@ -1,7 +1,7 @@
 const find = require('./find/find');
 const _update = require('./update/update');
 const _delete = require('./delete');
-const _insert = require('./insert');
+const _insert = require('./insert/insert');
 const _authenticate = require('./auth/authenticate-user');
 const hash = require('./auth/hash-password');
 
