@@ -1,14 +1,8 @@
-const {fakeUsers} = require('../../test-utils');
+const {fakeUsers} = require('../../users-test-utils');
 
 const findByEmail = require('./find-by-email');
 
 describe('User service -> \'Find By Email\' test suite', () => {
-	describe('Evaluating exported module', () => {
-		it('exported object should be a function', () => {
-			expect(findByEmail).toEqual(expect.any(Function));
-		});
-	});
-
 	describe('Evaluating module functionality', () => {
 		// ### MOCKS User repository mock
 		const userRepository = {

@@ -1,4 +1,4 @@
-const {fakeUsers: sampleUsers} = require('../test-utils');
+const {fakeUsers: sampleUsers} = require('../users-test-utils');
 
 const insert = require('./insert');
 

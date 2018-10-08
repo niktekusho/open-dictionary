@@ -1,6 +1,6 @@
 const {isValidUser} = require('../validation-utils');
-const checkUserExistance = require('./insert/duplicated-user-check');
-const {createServerError, createClientError} = require('../../errors');
+const {createServerError, createClientError} = require('../../../errors');
+const checkUserExistance = require('./duplicated-user-check');
 
 module.exports = async (user, userRepository, logger, hash) => {
 	if (user) {

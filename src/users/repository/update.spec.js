@@ -1,4 +1,4 @@
-const {fakeUsers} = require('../test-utils');
+const {fakeUsers} = require('../users-test-utils');
 const update = require('./update');
 
 describe('User repository -> \'Update\' test suite', () => {

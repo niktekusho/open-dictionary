@@ -1,14 +1,8 @@
-const {fakeUsers} = require('../test-utils');
+const {fakeUsers} = require('../users-test-utils');
 
 const deleteUser = require('./delete');
 
 describe('User service -> \'Delete\' test suite', () => {
-	describe('Evaluating exported module', () => {
-		it('exported object should be a function', () => {
-			expect(deleteUser).toEqual(expect.any(Function));
-		});
-	});
-
 	// ### MOCKS User repository mock
 	const userRepository = {
 		delete: jest.fn(async () => true)

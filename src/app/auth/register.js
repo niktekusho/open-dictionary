@@ -1,5 +1,5 @@
 module.exports = async function (fastify, opts) {
-	const {errors, userService} = fastify;
+	const {userService} = fastify;
 	// if opts contains a prefix, use that without additional resources
 	const route = (opts && opts.prefix) ? '/' : '/register';
 	fastify.post(route, async (req, res) => {

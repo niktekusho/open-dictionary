@@ -1,7 +1,7 @@
 const mongodb = require('mongodb');
 const utils = require('../utils');
 const userRepositoryFactory = require('./repository');
-const {fakeUsers, validFakeUsers, toUserRepositoryData} = require('./test-utils');
+const {fakeUsers, validFakeUsers, toUserRepositoryData} = require('./users-test-utils');
 
 describe('User Repository INTEGRATION TEST (requires Docker)', () => {
 	const url = 'mongodb://localhost:54321/users';

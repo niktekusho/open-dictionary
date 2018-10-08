@@ -1,6 +1,6 @@
 const {
 	fakeUsers: sampleUsers
-} = require('../test-utils');
+} = require('../users-test-utils');
 
 const find = require('./find');
 

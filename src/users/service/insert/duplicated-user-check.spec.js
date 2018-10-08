@@ -1,7 +1,4 @@
-const {
-	validFakeUsers,
-	fakeUsers
-} = require('../../test-utils');
+const {validFakeUsers} = require('../../users-test-utils');
 const userCheck = require('./duplicated-user-check');
 
 describe('User service -> \'User Check\' test suite', () => {

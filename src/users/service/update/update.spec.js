@@ -1,13 +1,7 @@
-const {fakeUsers} = require('../../test-utils');
+const {fakeUsers} = require('../../users-test-utils');
 const updateUser = require('./update');
 
 describe('User service -> \'Update\' test suite', () => {
-	describe('Evaluating exported module', () => {
-		it('exported object should be a function', () => {
-			expect(updateUser).toEqual(expect.any(Function));
-		});
-	});
-
 	// ### MOCKS User repository mock
 	const userRepository = {
 		update: jest.fn(async () => true)
