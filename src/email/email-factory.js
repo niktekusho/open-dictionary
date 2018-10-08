@@ -6,4 +6,4 @@ module.exports = function (from, to, subject, content) {
 		text: content,
 		html: content
 	};
-}
+};
