@@ -24,7 +24,7 @@ describe('User service -> \'Factory\' test suite', () => {
 
 	/*
 		Since the individual features are already tested with their own file,
-		I am just going to check the functions' existance and that the corre(ct invocation is made.
+		I am just going to check the functions' existance and that the correct invocation is made.
 	*/
 	it('invocating the function should return an object', () => {
 		expect(userService).toBeDefined();
@@ -53,9 +53,9 @@ describe('User service -> \'Factory\' test suite', () => {
 
 	it('the returned object should contain the create new user feature', async () => {
 		expect(userService.createUser).toBeDefined();
-		await userService.createUser({});
+		await userService.createUser({}, {});
 		expect(insertUser).toHaveBeenCalledTimes(1);
-		expect(insertUser).toHaveBeenCalledWith({}, userRepositoryMock, loggerMock, expect.any(Function));
+		expect(insertUser).toHaveBeenCalledWith({}, userRepositoryMock, loggerMock, expect.any(Function), {});
 	});
 
 	it('the returned object should contain the update feature', async () => {

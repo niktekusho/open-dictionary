@@ -8,7 +8,7 @@ const hash = require('./auth/hash-password');
 function init(userRepository, logger) {
 	return {
 		authenticate: (username, password) => _authenticate(userRepository, logger, username, password),
-		createUser: userData => _insert(userData, userRepository, logger, hash),
+		createUser: (userData, emailService) => _insert(userData, userRepository, logger, hash, emailService),
 		deleteUser: (currentUser, username) => _delete(currentUser, username, userRepository, logger),
 		findUserByEmail: (email, projection) => find.findByEmail(userRepository, email, projection, logger),
 		findUserByUsername: (username, projection) => find.findByUsername(userRepository, username, projection, logger),
