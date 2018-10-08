@@ -12,6 +12,12 @@
 		},
 		{
 			"type": "node",
+			"request": "attach",
+			"name": "Attach to Jest custom test",
+			"port": 40091
+		},
+		{
+			"type": "node",
 			"request": "launch",
 			"name": "Launch Program",
 			"program": "${workspaceFolder}/src/index.js",
