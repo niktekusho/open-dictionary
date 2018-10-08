@@ -11,14 +11,12 @@ describe('Email -> \'SMTP Account\' test suite', () => {
 		info: jest.fn()
 	};
 
-	it('should create an account for smtp credentials when nodemailer succeeds', () => {
-		const account = createAccount(nodemailerMock, loggerMock);
-		expect(account).toStrictEqual(fakeAccount);
+	it('should create an account for smtp credentials when nodemailer succeeds', async () => {
+		await expect(createAccount(nodemailerMock, loggerMock)).resolves.toStrictEqual(fakeAccount);
 	});
 
-	it('should NOT create an account for smtp credentials when nodemailer fails', () => {
+	it('should NOT create an account for smtp credentials when nodemailer fails', async () => {
 		nodemailerMock.createTestAccount.mockImplementationOnce(cb => cb(new Error('Some error'), null));
-		const account = createAccount(nodemailerMock, loggerMock);
-		expect(account).toBeNull();
+		await expect(createAccount(nodemailerMock, loggerMock)).rejects.toThrowError('Some error');
 	});
 });

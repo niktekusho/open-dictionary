@@ -11,6 +11,8 @@ const userServiceFactory = require('../users/service/user-service');
 const userConfig = require('../config/user-config');
 const utils = require('../utils');
 
+const emailService = require('./email/email');
+
 async function setup(fastify, opts, next) {
 	const mongoUrl = utils.buildMongoUrl(userConfig);
 	// Create the user repository obj (connection is handled inside) and assign it to the fastify instance
@@ -35,7 +37,8 @@ async function setup(fastify, opts, next) {
 	};
 	fastify
 		.register(fastifyJWT, jwtOpts)
-		.register(fastifyAuth);
+		.register(fastifyAuth)
+		.register(emailService);
 
 	next();
 }

@@ -12,12 +12,12 @@ describe('Email -> \'Email Service\' test suite', () => {
 
 	nodemailerMock.createTestAccount = jest.fn(cb => cb(null, emailTestAccount));
 
-	it('should use the dev environment for email service creation', () => {
-		expect(emailService(loggerMock)).toMatchObject({sendMail: expect.any(Function)});
+	it('should use the dev environment for email service creation', async () => {
+		await expect(emailService(loggerMock)).resolves.toMatchObject({sendMail: expect.any(Function)});
 	});
 
-	it('should throw when it cannot create the dev credentials', () => {
+	it('should throw when it cannot create the dev credentials', async () => {
 		nodemailerMock.createTestAccount.mockImplementationOnce(cb => cb(new Error()));
-		expect(() => emailService(loggerMock)).toThrow();
+		await expect(emailService(loggerMock)).rejects.toThrowError();
 	});
 });

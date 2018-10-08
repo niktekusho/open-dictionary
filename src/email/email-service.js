@@ -6,18 +6,13 @@ const emailValidator = require('./email-message-validator');
 const createTransporter = require('./create-email-transporter');
 const sendEmail = require('./send-email');
 
-module.exports = function (logger) {
-	// First step: create the account, might be null in case of errors
-	const account = createAccount(nodemailer, logger);
-
-	// TODO Handle error by throwing
-	if (account === null) {
-		throw new Error('SMTP credentials creation failed');
-	}
+module.exports = async function (logger) {
+	// First step: create the account, cannot be null in case of errors (whole function throws)
+	const account = await createAccount(nodemailer, logger);
 
 	const transporter = createTransporter(nodemailer, account);
 
 	return {
-		sendMail: message => sendEmail(message, emailValidator, transporter, logger)
+		sendMail: async message => sendEmail(message, emailValidator, transporter, logger)
 	};
 };
