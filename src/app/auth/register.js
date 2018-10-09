@@ -18,7 +18,7 @@ module.exports = async function (fastify, opts) {
 			} else {
 				statusCode = 500;
 			}
-			return res.code(statusCode).send(error.details);
+			return res.code(statusCode).send(error.message);
 		}
 	});
 };

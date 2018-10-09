@@ -7,7 +7,7 @@ module.exports = async (user, userRepository, logger) => {
 		let existingUser = null;
 
 		try {
-			existingUser = await userRepository.find(userRepository.queries.userExists(user.username, user.email));
+			existingUser = await userRepository.find(userRepository.queries.existingUser(user.username, user.email));
 		} catch (error) {
 			throw createServerError(error, 'User repository find failed.');
 		}

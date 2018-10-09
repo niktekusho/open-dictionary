@@ -14,7 +14,7 @@ module.exports = async function (logger) {
 	const transporter = createTransporter(nodemailer, account);
 
 	return {
-		sendMail: async message => sendEmail(message, emailValidator, transporter, logger),
+		sendMail: async message => sendEmail(message, emailValidator, transporter, logger, nodemailer),
 		createEmail
 	};
 };

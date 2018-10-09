@@ -5,7 +5,7 @@ async function plugin(fastify, opts, next) {
 
 	const adminUser = {
 		username: 'admin',
-		email: 'test@user.org',
+		email: 'admin@user.org',
 		password: process.env.OD_ADMIN_PSW || 'admin',
 		roles: ['ADMIN']
 	};

@@ -10,19 +10,19 @@ describe('Email -> \'Email Validator\' test suite', () => {
 			html: '<p><b>Hello</b> world!</p>'
 		};
 		const result = validator(message);
-		expect(result.valid).toEqual(true);
+		expect(result.isValid).toEqual(true);
 		expect(result.details).toEqual({});
 	});
 
 	it('should return a falsy validation object with an undefined or null object', () => {
 		// First check for null
 		let result = validator(null);
-		expect(result.valid).toEqual(false);
+		expect(result.isValid).toEqual(false);
 		expect(result.details).toHaveProperty('message');
 
 		// Then check for undefined
 		result = validator(undefined);
-		expect(result.valid).toEqual(false);
+		expect(result.isValid).toEqual(false);
 		expect(result.details).toHaveProperty('message');
 	});
 });

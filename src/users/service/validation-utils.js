@@ -24,9 +24,7 @@ module.exports = (() => {
 			const isValid = lazyValidate()(user);
 			// Build the basic object which tells if the user is valid or not
 			// If the user wasn't valid, the validate function of ajv has an errors property with the relevant errors.
-			const output = new Validation(isValid, jsonValidate.errors);
-			// Finally return the result object
-			return output;
+			return new Validation(isValid, jsonValidate.errors);
 		}
 	};
 })();

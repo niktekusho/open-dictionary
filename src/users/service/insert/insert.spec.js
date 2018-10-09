@@ -10,7 +10,7 @@ describe('User service -> \'Insert\' test suite', () => {
 		insert: jest.fn(async () => true),
 		find: jest.fn(() => Promise.resolve()),
 		queries: {
-			userExists: jest.fn(),
+			existingUser: jest.fn(),
 			equalsUsername: jest.fn()
 		}
 	};

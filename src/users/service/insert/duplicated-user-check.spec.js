@@ -6,7 +6,7 @@ describe('User service -> \'User Check\' test suite', () => {
 	const userRepository = {
 		find: jest.fn(() => Promise.resolve()),
 		queries: {
-			userExists: jest.fn(),
+			existingUser: jest.fn(),
 			equalsUsername: jest.fn()
 		}
 	};

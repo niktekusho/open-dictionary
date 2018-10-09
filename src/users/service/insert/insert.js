@@ -5,7 +5,7 @@ const checkUserExistance = require('./duplicated-user-check');
 module.exports = async (user, userRepository, logger, hash, emailService) => {
 	if (user) {
 		const validationResult = isValidUser(user);
-		if (validationResult.valid) {
+		if (validationResult.isValid) {
 			// Check if a user with the same username or email already exists
 			// Throwed errors already in the correct format so not catching is fine
 			await checkUserExistance(user, userRepository, logger);

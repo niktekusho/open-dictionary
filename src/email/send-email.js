@@ -1,4 +1,4 @@
-module.exports = async function (emailMsg, emailValidator, emailTransporter, logger) {
+module.exports = async function (emailMsg, emailValidator, emailTransporter, logger, nodemailer) {
 	// Some validation first
 	return new Promise((resolve, reject) => {
 		const emailValidation = emailValidator(emailMsg);
@@ -10,7 +10,7 @@ module.exports = async function (emailMsg, emailValidator, emailTransporter, log
 					reject(error);
 				}
 
-				logger.info(`Message sent: ${info.messageId}`);
+				logger.debug(`Message sent: ${nodemailer.getTestMessageUrl(info)}`);
 				resolve(info.messageId);
 				// Preview only available when sending through an Ethereal account
 				// console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
