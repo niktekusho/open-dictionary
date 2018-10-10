@@ -16,17 +16,8 @@ module.exports = async function (emailMsg, emailValidator, emailTransporter, log
 				// console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 			});
 		} else {
-			// reject the promise giving the details
+			// Reject the promise giving the details
 			reject(emailValidation.details);
 		}
 	});
 };
-
-// Message object
-// let message = {
-// from: sender,
-// to: 'Recipient <recipient@example.com>',
-// subject: 'Nodemailer is unicode friendly ✔',
-// text: 'Hello world!',
-// html: '<p><b>Hello</b> world!</p>'
-// };

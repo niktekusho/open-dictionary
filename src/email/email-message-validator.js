@@ -23,7 +23,7 @@ module.exports = function (emailMessage) {
 		return new Validation(false, {message: 'Message object is NOT defined.'});
 	}
 
-	// emailMessage is defined, let's check for required properties
+	// From here emailMessage is defined, let's check for required properties
 	const requiredProperties = ['from', 'to', 'subject', 'text', 'html'];
 	requiredProperties.forEach(required => {
 		// Use the function defined above to check the single property

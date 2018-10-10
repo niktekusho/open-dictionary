@@ -10,7 +10,7 @@ async function plugin(fastify, opts, next) {
 		roles: ['ADMIN']
 	};
 
-	// first check if the admin user is already created
+	// First check if the admin user is already created
 	let existingAdmin = null;
 	try {
 		existingAdmin = await userService.findUserByUsername(adminUser.username);

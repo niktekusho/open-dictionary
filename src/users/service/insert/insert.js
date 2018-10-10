@@ -24,7 +24,7 @@ module.exports = async (user, userRepository, logger, hash, emailService) => {
 				try {
 					await emailService.sendMail(email);
 				} catch (error) {
-					// log error and do nothing else
+					// Log the error and do nothing else
 					logger.error(error);
 				}
 				return repositoryResult;

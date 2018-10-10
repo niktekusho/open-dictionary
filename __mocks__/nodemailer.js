@@ -1,4 +1,4 @@
 const nodemailer = jest.genMockFromModule('nodemailer');
 
-// mock all
+// Mock the whole module!
 module.exports = nodemailer;
