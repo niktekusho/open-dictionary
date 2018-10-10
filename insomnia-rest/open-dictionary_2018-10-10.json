@@ -1,0 +1,275 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2018-10-10T14:31:39.582Z",
+	"__export_source": "insomnia.desktop.app:v6.0.2",
+	"resources": [
+		{
+			"_id": "wrk_8b6c4e33f7c64ab7a5a5d291a4268b14",
+			"created": 1537518836511,
+			"description": "",
+			"modified": 1537518836511,
+			"name": "open-dictionary",
+			"parentId": null,
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_6fb495b872dc4dff8e35700c29b0f69d",
+			"color": null,
+			"created": 1537518836538,
+			"data": {},
+			"isPrivate": false,
+			"metaSortKey": 1537518836538,
+			"modified": 1537518836538,
+			"name": "New Environment",
+			"parentId": "wrk_8b6c4e33f7c64ab7a5a5d291a4268b14",
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_eeed78b1b63b48d19a23c0204f4dc9bd",
+			"cookies": [],
+			"created": 1537518836544,
+			"modified": 1537518836544,
+			"name": "Default Jar",
+			"parentId": "wrk_8b6c4e33f7c64ab7a5a5d291a4268b14",
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "fld_3765a664e309423c94ccd6006b81323c",
+			"created": 1537518865953,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1535033789124.25,
+			"modified": 1537518865968,
+			"name": "open-dictionary",
+			"parentId": "wrk_8b6c4e33f7c64ab7a5a5d291a4268b14",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_2da41a64a18e45ff98b18206a78f3ef3",
+			"created": 1537539466557,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1537539466557,
+			"modified": 1537539466557,
+			"name": "Create new user",
+			"parentId": "fld_3765a664e309423c94ccd6006b81323c",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_5cdb69c2b1694a1bad554aa0aa52d8d5",
+			"created": 1538034605337,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1538034605337,
+			"modified": 1538034605337,
+			"name": "Retrieve users",
+			"parentId": "fld_3765a664e309423c94ccd6006b81323c",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_f607ddefcf72400c884eac70c2456d49",
+			"created": 1538579670585,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1538579670585,
+			"modified": 1538579670585,
+			"name": "Login",
+			"parentId": "fld_3765a664e309423c94ccd6006b81323c",
+			"_type": "request_group"
+		},
+		{
+			"_id": "req_a77503aca3eb42b093980f03aa3d3326",
+			"authentication": {},
+			"body": {},
+			"created": 1537518865958,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1537518785360,
+			"method": "GET",
+			"modified": 1539092928656,
+			"name": "All users",
+			"parameters": [],
+			"parentId": "fld_3765a664e309423c94ccd6006b81323c",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:3000/users",
+			"_type": "request"
+		},
+		{
+			"_id": "req_aa814b0fc7584b72a1c63efd466ead9b",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\"username\":\"testuser1\", \"email\": \"test1@user.org\", \"password\": \"sdsas\", \"roles\": [\"ADMIN\"]}"
+			},
+			"created": 1537519179767,
+			"description": "",
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1537519179767,
+			"method": "POST",
+			"modified": 1539181181647,
+			"name": "Create new user",
+			"parameters": [],
+			"parentId": "fld_3765a664e309423c94ccd6006b81323c",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:3000/users",
+			"_type": "request"
+		},
+		{
+			"_id": "req_21d831703ee646dfbbf93ec0f57abb12",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\"email\": \"test\"}"
+			},
+			"created": 1537539490132,
+			"description": "",
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1537539490132,
+			"method": "POST",
+			"modified": 1537539701391,
+			"name": "Only Email",
+			"parameters": [],
+			"parentId": "fld_2da41a64a18e45ff98b18206a78f3ef3",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:3000/users",
+			"_type": "request"
+		},
+		{
+			"_id": "req_fdbce8bdcc5e435794aacd00964c9b86",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\"username\": \"test\"}"
+			},
+			"created": 1537539525956,
+			"description": "",
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1537529334949.5,
+			"method": "POST",
+			"modified": 1537782709730,
+			"name": "Only Username",
+			"parameters": [],
+			"parentId": "fld_2da41a64a18e45ff98b18206a78f3ef3",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:3000/users",
+			"_type": "request"
+		},
+		{
+			"_id": "req_146902351a0b44d098c7f71bc8dee95c",
+			"authentication": {},
+			"body": {},
+			"created": 1538034617785,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1538034617785,
+			"method": "GET",
+			"modified": 1539181198449,
+			"name": "Get user by username",
+			"parameters": [],
+			"parentId": "fld_5cdb69c2b1694a1bad554aa0aa52d8d5",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:3000/users/admin1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_b856064acf1c465cb53350c599f23440",
+			"authentication": {},
+			"body": {},
+			"created": 1539181196693,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1539181196693,
+			"method": "GET",
+			"modified": 1539181211234,
+			"name": "Get user roles",
+			"parameters": [],
+			"parentId": "fld_5cdb69c2b1694a1bad554aa0aa52d8d5",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:3000/users/admin/roles",
+			"_type": "request"
+		},
+		{
+			"_id": "req_10a94ac0a4124962b50891cca26ccddb",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin1\"\n}"
+			},
+			"created": 1538579675654,
+			"description": "",
+			"headers": [
+				{
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1538579675654,
+			"method": "POST",
+			"modified": 1539014367513,
+			"name": "login",
+			"parameters": [],
+			"parentId": "fld_f607ddefcf72400c884eac70c2456d49",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:3000/login",
+			"_type": "request"
+		}
+	]
+}
