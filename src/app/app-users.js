@@ -5,6 +5,7 @@ const getAllUsersRoute = require('./users/get-users');
 const createUserRoute = require('./users/register');
 const getUserRoute = require('./users/get-user');
 const getUserRolesRoute = require('./users/get-user-roles');
+const meRoute = require('./users/current-user');
 
 async function plugin(fastify, opts, next) {
 	fastify
@@ -12,7 +13,8 @@ async function plugin(fastify, opts, next) {
 		.register(createUserRoute, opts)
 		.register(getUserRoute, opts)
 		.register(getUserRolesRoute, opts)
-		.register(loginRoute, opts);
+		.register(loginRoute, opts)
+		.register(meRoute, opts);
 
 	fastify.setNotFoundHandler((req, res) => {
 		const {username} = req.params;

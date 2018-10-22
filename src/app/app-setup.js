@@ -13,6 +13,9 @@ const utils = require('../utils');
 
 const emailService = require('./email/email');
 
+// "Sane" JWT Secret
+const defaultSecret = 'open_Dictionary|Secret:0';
+
 async function setup(fastify, opts, next) {
 	const mongoUrl = utils.buildMongoUrl(userConfig);
 	// Create the user repository obj (connection is handled inside) and assign it to the fastify instance
@@ -31,7 +34,7 @@ async function setup(fastify, opts, next) {
 	fastify.decorate('errors', errors);
 
 	// Use a sane JWT secret... even though it SHOULD USE the env var!
-	const secret = process.env.OD_SECRET || 'open_Dictionary|Secret:0';
+	const secret = process.env.OD_SECRET || defaultSecret;
 	const jwtOpts = {
 		secret
 	};
@@ -39,6 +42,15 @@ async function setup(fastify, opts, next) {
 		.register(fastifyJWT, jwtOpts)
 		.register(fastifyAuth)
 		.register(emailService);
+
+	// Create an 'authenticate' method to secure specific routes using each route's 'beforeHandler' function
+	fastify.decorate('authenticate', async (request, reply) => {
+		try {
+			await request.jwtVerify();
+		} catch (error) {
+			reply.send(error);
+		}
+	});
 
 	next();
 }
