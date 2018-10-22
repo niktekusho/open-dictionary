@@ -2,7 +2,6 @@ const fastify = require('fastify');
 
 const usersSetupPlugin = require('./app/app-setup');
 const usersAPIPlugin = require('./app/app-users');
-const authPlugin = require('./app/app-auth');
 
 const demoPlugin = require('./app/demo/admin-user');
 
@@ -13,7 +12,6 @@ const app = fastify({
 app
 	.register(usersSetupPlugin)
 	.register(usersAPIPlugin, {prefix: '/users'})
-	.register(authPlugin)
 	.register(demoPlugin);
 
 app.ready(async err => {

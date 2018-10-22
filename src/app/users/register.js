@@ -1,14 +1,12 @@
-module.exports = async function (fastify, opts) {
+module.exports = async function (fastify) {
 	const {emailService, userService} = fastify;
-	// If opts contains a prefix, use that without additional resources
-	const route = (opts && opts.prefix) ? '/' : '/register';
-	fastify.post(route, async (req, res) => {
+	fastify.post('/', async (req, res) => {
 		const {body} = req;
 		try {
 			await userService.createUser(body, emailService);
-			return {
+			return res.code(201).send({
 				msg: 'User created'
-			};
+			});
 		} catch (error) {
 			fastify.log.error(error);
 			let statusCode;
