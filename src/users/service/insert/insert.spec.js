@@ -58,7 +58,7 @@ describe('User service -> \'Insert\' test suite', () => {
 		userRepository.find.mockImplementationOnce(() => Promise.resolve());
 		userRepository
 			.insert
-			.mockImplementationOnce(() => Promise.reject());
+			.mockImplementationOnce(() => Promise.reject(new Error()));
 		await expect(insert(validFakeUsers[0], userRepository, logger, hashMock, emailService)).rejects.toThrowError();
 
 		// #2: Check that the repository is not called when the user is not specified

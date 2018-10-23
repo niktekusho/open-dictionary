@@ -3,7 +3,7 @@ module.exports = function (nodemailer, logger) {
 		nodemailer.createTestAccount((error, account) => {
 			if (error) {
 				logger.error(`Failed to create a test account: ${error.message}`);
-				reject(error);
+				return reject(error);
 			}
 			logger.info('Email credentials obtained.');
 			resolve(account);

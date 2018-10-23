@@ -7,7 +7,7 @@ module.exports = async function (emailMsg, emailValidator, emailTransporter, log
 			emailTransporter.sendMail(emailMsg, (error, info) => {
 				if (error) {
 					logger.error(`Error occurred: ${error.message}`);
-					reject(error);
+					return reject(error);
 				}
 
 				logger.debug(`Message sent: ${nodemailer.getTestMessageUrl(info)}`);

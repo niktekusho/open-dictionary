@@ -19,7 +19,7 @@ module.exports = async function (fastify) {
 			jwt.sign(tokenData, tokenOpts, (error, jwtToken) => {
 				if (error) {
 					const serverError = errors.createServerError(error, 'JWT signing failed');
-					reject(serverError);
+					return reject(serverError);
 				}
 				resolve(jwtToken);
 			});
