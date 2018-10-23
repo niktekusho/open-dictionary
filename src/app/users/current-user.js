@@ -4,8 +4,9 @@ module.exports = async function (fastify) {
 	fastify.get('/me',
 		{beforeHandler: [fastify.authenticate]},
 		async (request, reply) => {
-			fastify.log.debug(request);
 			if (request.user) {
+				// TODO log.debug not working
+				fastify.log.info(request.user);
 				const {username} = request.user;
 				return reply.redirect(`./${username}`);
 			}

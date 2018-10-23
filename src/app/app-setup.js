@@ -48,7 +48,7 @@ async function setup(fastify, opts, next) {
 		try {
 			await request.jwtVerify();
 		} catch (error) {
-			reply.send(error);
+			return reply.code(401).send(error);
 		}
 	});
 

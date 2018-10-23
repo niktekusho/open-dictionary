@@ -10,9 +10,9 @@ module.exports = async function (fastify) {
 			return res.code(401).send(error);
 		}
 		const tokenData = {username, password};
-		// Reasonable default: expire the token in 7 days
+		// Reasonable default: expire the token in 1 hour
 		const tokenOpts = {
-			expiresIn: '7d'
+			expiresIn: '1h'
 		};
 		// Async JWT token creation
 		return new Promise((resolve, reject) => {
