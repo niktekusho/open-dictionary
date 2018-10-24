@@ -7,7 +7,7 @@ jobs:
 - job: ${{ format('Build-{0}', parameters.name) }}
   displayName: ${{ format('Build on {0}', parameters.name) }}
   steps:
-  - template: ./azure-step-template
-  parameters:
-    name: ${{parameters.name}}
-    nodeVersion: ${{parameters.nodeVersion}}
+  - template: ./azure-step-template.yml
+    parameters:
+      name: ${{parameters.name}}
+      nodeVersion: ${{parameters.nodeVersion}}
