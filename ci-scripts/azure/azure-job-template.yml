@@ -4,7 +4,7 @@ parameters:
   nodeVersion: ''
 
 jobs:
-- job: ${{ format('Build-{0}', parameters.name }}
+- job: ${{ format('Build-{0}', parameters.name) }}
   displayName: ${{ format('Build on {0}', parameters.name) }}
   steps:
   - template: ./azure-step-template
