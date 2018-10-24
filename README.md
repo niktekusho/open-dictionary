@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/niktekusho/open-dictionary.svg?branch=master)](https://travis-ci.org/niktekusho/open-dictionary)
 [![Build status](https://ci.appveyor.com/api/projects/status/q52howibupnrp386/branch/master?svg=true)](https://ci.appveyor.com/project/niktekusho/open-dictionary/branch/master)
+[![Build Status](https://dev.azure.com/niktekusho/Open%20Dictionary/_apis/build/status/niktekusho.open-dictionary)](https://dev.azure.com/niktekusho/Open%20Dictionary/_build/latest?definitionId=1)
 
 # Open Dictionary
 

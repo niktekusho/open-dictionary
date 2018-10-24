@@ -3,16 +3,15 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
-pool:
-  vmImage: 'Ubuntu 16.04'
+jobs:
+- template: ci-scripts/azure/azure-job-template.yml  # Template reference
+  parameters:
+    name: 'Node 8 LTS on Linux'
+    vmImage: 'ubuntu-16.04'
+	nodeVersion: '8.x'
+- template: ci-scripts/azure/azure-job-template.yml  # Template reference
+  parameters:
+    name: 'Node 8 LTS on Windows'
+    vmImage: 'vs2017-win2016'
+	nodeVersion: '8.x'
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '8.x'
-  displayName: 'Install Node.js'
-
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'

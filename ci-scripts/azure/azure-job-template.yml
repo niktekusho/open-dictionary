@@ -1,0 +1,24 @@
+parameters:
+  name: ''  # defaults for any parameters that aren't specified
+  vmImage: ''
+  nodeVersion: ''
+
+jobs:
+- job: 'NodeJSInstallJob'
+  displayName: ${{ format('Node.JS Installation on {0}', parameters.name) }}
+  pool:
+    vmImage: ${{ parameters.vmImage }}
+  steps:
+  - task: NodeTool@0
+	inputs:
+      versionSpec: ${{ parameters.nodeVersion }}
+- job: 'InstallDepsJob'
+  displayName: 'Dependencies Installation'
+  dependsOn: 'NodeJSInstallJob'
+  steps:
+  - script: yarn install
+- job: 'Test'
+  displayName: ${{ format('Test on {0}, parameters.name') }}
+  dependsOn: 'InstallDepsJob'
+  steps:
+  - script: yarn test
