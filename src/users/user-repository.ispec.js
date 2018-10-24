@@ -1,7 +1,7 @@
 const mongodb = require('mongodb');
 const utils = require('../utils');
 const userRepositoryFactory = require('./repository');
-const {fakeUsers, validFakeUsers} = require('./test-utils');
+const {fakeUsers, validFakeUsers, toUserRepositoryData} = require('./users-test-utils');
 
 describe('User Repository INTEGRATION TEST (requires Docker)', () => {
 	const url = 'mongodb://localhost:54321/users';
@@ -40,17 +40,19 @@ describe('User Repository INTEGRATION TEST (requires Docker)', () => {
 
 	it('inserting a valid user should succeed', async () => {
 		const userRepository = await userRepositoryFactory(mongodb, url, logger, utils);
-		await expect(userRepository.insert(validFakeUsers[0])).resolves.toBeDefined();
+		const validUser = toUserRepositoryData(validFakeUsers[0]);
+		await expect(userRepository.insert(validUser)).resolves.toBeDefined();
 	});
 
 	it('inserting a duplicate user should fail', async () => {
 		const userRepository = await userRepositoryFactory(mongodb, url, logger, utils);
-		await expect(userRepository.insert(validFakeUsers[0])).resolves.toBeDefined();
+		const validUser = toUserRepositoryData(validFakeUsers[0]);
+		await expect(userRepository.insert(validUser)).resolves.toBeDefined();
 	});
 
 	it('updating user should succeed', async () => {
 		const userRepository = await userRepositoryFactory(mongodb, url, logger, utils);
-		const user = validFakeUsers[0];
+		const user = toUserRepositoryData(validFakeUsers[0]);
 		// First insert
 		await userRepository.insert(user);
 		// Make some change in the user

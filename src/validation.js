@@ -4,7 +4,7 @@ class Validation {
 		this._details = details;
 	}
 
-	get valid() {
+	get isValid() {
 		return this._valid;
 	}
 

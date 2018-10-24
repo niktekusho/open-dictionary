@@ -5,6 +5,9 @@ function todayAtMidnight() {
 }
 
 module.exports = mongodb => ({
+	existingUser: (username, email) => ({
+		$or: [{username}, {email}]
+	}),
 	equalsUsername: username => ({
 		username
 	}),

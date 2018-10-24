@@ -1,4 +1,4 @@
-const {fakeUsers} = require('../test-utils');
+const {fakeUsers} = require('../users-test-utils');
 const update = require('./update');
 
 describe('User repository -> \'Update\' test suite', () => {
@@ -72,7 +72,7 @@ describe('User repository -> \'Update\' test suite', () => {
 		});
 		it('if the username is not found it should reject', async () => {
 			const collection = {
-				findOneAndUpdate: jest.fn(Promise.reject(new Error('missing username')))
+				findOneAndUpdate: jest.fn(() => Promise.reject(new Error('missing username')))
 			};
 
 			const logger = {

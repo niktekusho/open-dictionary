@@ -1,245 +1,31 @@
-[
-	{
-	  "username": "pariatur eiusmod eu labore",
-	  "email": "XVyFLs2YbGn@mBcndzEcxNXov.yhe",
-	  "passwordHash": "Ut in sed",
-	  "roles": [
-		"WRITER",
-		"READER"
-	  ]
+[{
+		"username": "test1",
+		"email": "XVyFLs2YbGn@mBcndzEcxNXov.yhe",
+		"passwordHash": "Ut in sed",
+		"roles": [
+			"WRITER",
+			"READER"
+		]
 	},
 	{
-	  "username": "aliqua in et pariatur minim",
-	  "email": "lnvD@B.qzpy",
-	  "passwordHash": "ex ipsum irure Ut",
-	  "roles": [
-		"WRITER",
-		"REVIEWER",
-		"READER",
-		"ADMIN"
-	  ]
+		"username": "Test1",
+		"email": "lnvD@B.qzpy",
+		"passwordHash": "ex ipsum irure Ut",
+		"roles": [
+			"WRITER",
+			"REVIEWER",
+			"READER",
+			"ADMIN"
+		]
 	},
 	{
-	  "username": "",
-	  "email": "OuZ7RGoQA2oPBI@HtdOugGkPQpHWtys.yxq",
-	  "passwordHash": "sit in",
-	  "roles": [
-		"WRITER",
-		"ADMIN",
-		"REVIEWER"
-	  ]
-	},
-	{
-	  "username": "tempor velit ea dolore",
-	  "email": "XsN8KVrS6inJPR1@ETBUsQFeZBeiCmEot.jm",
-	  "passwordHash": "laborum ut sint",
-	  "roles": [
-		"ADMIN",
-		"REVIEWER"
-	  ]
-	},
-	{
-	  "username": "sed aute exercitation veniam",
-	  "email": "rHBusIyP@GYlUMLIjubZwyZWZYP.kojw",
-	  "passwordHash": "magna laborum enim ut ad",
-	  "roles": [
-		"REVIEWER",
-		"READER",
-		"ADMIN",
-		"WRITER"
-	  ]
-	},
-	{
-	  "username": "amet in reprehenderit",
-	  "email": "Iukek0F6@iyGckTzsAAHWORzjJHOvgRuofKiJEc.inbh",
-	  "passwordHash": "exercitation Lorem",
-	  "roles": [
-		"WRITER"
-	  ]
-	},
-	{
-	  "username": "consectetur do dolor cillum",
-	  "email": "BUvvQHHG9W4ECp@sSbPGeSRiErnPCjGM.uqi",
-	  "passwordHash": "voluptate sit consequat commodo",
-	  "roles": [
-		"ADMIN",
-		"REVIEWER",
-		"READER"
-	  ]
-	},
-	{
-	  "username": "dolor irure",
-	  "email": "8X6Cy3LljarCo@roPNseQD.xq",
-	  "passwordHash": "adipisicing et dolore",
-	  "roles": [
-		"REVIEWER",
-		"WRITER"
-	  ]
-	},
-	{
-	  "username": "aute aliq",
-	  "email": "TuNVXdkOFEtF@MwkQvPAyDmVyAoUwhLP.ab",
-	  "passwordHash": "qui labore occaecat aute",
-	  "roles": [
-		"REVIEWER",
-		"ADMIN"
-	  ]
-	},
-	{
-	  "username": "proident dolore in commodo",
-	  "email": "OttAGGgjGx@fbnWzmbHWNIVx.mvrr",
-	  "passwordHash": "id consequat veniam",
-	  "roles": [
-		"REVIEWER",
-		"READER",
-		"WRITER",
-		"ADMIN"
-	  ]
-	},
-	{
-	  "username": "eu tempor",
-	  "email": "oVdsFmkXgxR7Qk@slDTQhOTykdkxyAkLFZjf.pyr",
-	  "passwordHash": "qui esse Duis laboris",
-	  "roles": [
-		"WRITER",
-		"READER"
-	  ]
-	},
-	{
-	  "username": "anim consequat",
-	  "email": "muJp0@sl.qum",
-	  "passwordHash": "minim irure ",
-	  "roles": [
-		"WRITER",
-		"READER"
-	  ]
-	},
-	{
-	  "username": "dolor fugiat",
-	  "email": "ZbDfJ2ODdTxRY@phiiQTnpeuXBGoAVcQbFfLrDJRcJIys.ayhm",
-	  "passwordHash": "cillum pariatur deserunt ipsum exercitation",
-	  "roles": [
-		"WRITER",
-		"REVIEWER"
-	  ]
-	},
-	{
-	  "username": "minim",
-	  "email": "q0E1NNUDtm0@jFihzObLgufEOi.qyut",
-	  "passwordHash": "culpa",
-	  "roles": [
-		"ADMIN",
-		"READER",
-		"REVIEWER"
-	  ]
-	},
-	{
-	  "username": "pariatur aliquip laborum consectetur",
-	  "email": "pos-SAOfWnJ@wshuHJZhVyntc.fws",
-	  "passwordHash": "dolore nisi laborum",
-	  "roles": [
-		"REVIEWER",
-		"ADMIN",
-		"READER",
-		"WRITER"
-	  ]
-	},
-	{
-	  "username": "ut proident",
-	  "email": "26jPAOmgpDs@INeGmajq.fbqi",
-	  "passwordHash": "proident anim Lorem",
-	  "roles": [
-		"READER",
-		"REVIEWER",
-		"WRITER",
-		"ADMIN"
-	  ]
-	},
-	{
-	  "username": "commodo occaecat in",
-	  "email": "9dNch@rJMtaIUcwQfjs.ea",
-	  "passwordHash": "consectetur ipsum",
-	  "roles": [
-		"ADMIN"
-	  ]
-	},
-	{
-	  "username": "aute aliquip veniam dolor",
-	  "email": "FT2Tyn@AuqVJCeSEFLCv.nk",
-	  "passwordHash": "dolor exercitation",
-	  "roles": [
-		"REVIEWER",
-		"ADMIN",
-		"READER"
-	  ]
-	},
-	{
-	  "username": "ex ut Ut",
-	  "email": "tmcnGpONo@KWXrMOwAVOzQ.vl",
-	  "passwordHash": "sunt aliqua",
-	  "roles": [
-		"READER",
-		"ADMIN"
-	  ]
-	},
-	{
-	  "username": "aute est",
-	  "email": "NLZ2BSWEgIK3Vj@LQS.msr",
-	  "passwordHash": "ad ipsum",
-	  "roles": [
-		"READER",
-		"WRITER"
-	  ]
-	},
-	{
-	  "username": "ut eu cupidatat",
-	  "email": "d5YP43lGP@TkhyqxKIxgwWNSlXOJcnmRslRa.sva",
-	  "passwordHash": "deserunt irure ullamco",
-	  "roles": [
-		"ADMIN",
-		"WRITER",
-		"READER",
-		"REVIEWER"
-	  ]
-	},
-	{
-	  "username": "cillum ad",
-	  "email": "cxnr5qAGVmzSRr@EcRqmbhtMnObRjiarcxBiaZoizA.vig",
-	  "passwordHash": "commodo occaecat Ut ",
-	  "roles": [
-		"ADMIN",
-		"REVIEWER",
-		"WRITER"
-	  ]
-	},
-	{
-	  "username": "voluptate consequat nostrud est",
-	  "email": "g55eps-p@UAFpTJzkuUWkO.jomm",
-	  "passwordHash": "ex consectetur pariatur amet",
-	  "roles": [
-		"REVIEWER",
-		"READER",
-		"WRITER",
-		"ADMIN"
-	  ]
-	},
-	{
-	  "username": "ea dolor pariatur",
-	  "email": "jDU9QdW2lI59@YwhpbZOVtbJceeugWxJVDor.uqr",
-	  "passwordHash": "irure qui dolore officia do",
-	  "roles": [
-		"ADMIN",
-		"REVIEWER",
-		"READER"
-	  ]
-	},
-	{
-	  "username": "nostrud qui ullamco",
-	  "email": "ifcdKW@ZShuRWMxifba.lk",
-	  "passwordHash": "mollit sunt",
-	  "roles": [
-		"READER",
-		"WRITER"
-	  ]
+		"username": "Test2",
+		"email": "OuZ7RGoQA2oPBI@HtdOugGkPQpHWtys.yxq",
+		"passwordHash": "sit in",
+		"roles": [
+			"WRITER",
+			"ADMIN",
+			"REVIEWER"
+		]
 	}
-  ]
+]

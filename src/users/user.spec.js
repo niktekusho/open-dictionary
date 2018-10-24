@@ -1,10 +1,6 @@
 const user = require('./user');
 
 describe('User module test suite', () => {
-	it('User module should export objects', () => {
-		expect(user).toBeDefined();
-		expect(user.UserRole).toBeDefined();
-	});
 	describe('UserRole object test suite', () => {
 		function addPropertyToUserRole() {
 			'use strict';
