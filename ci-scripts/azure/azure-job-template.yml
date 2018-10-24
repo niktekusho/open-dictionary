@@ -1,13 +1,14 @@
 parameters:
-  name: ''  # defaults for any parameters that aren't specified
+  name: ''
+  displayName: ''
   vmImage: ''
   nodeVersion: ''
 
 jobs:
 - job: ${{ format('Build-{0}', parameters.name) }}
-  displayName: ${{ format('Build on {0}', parameters.name) }}
+  displayName: ${{ format('Build on {0}', parameters.displayName) }}
   steps:
   - template: ./azure-step-template.yml
     parameters:
-      name: ${{parameters.name}}
+      name: ${{parameters.displayName}}
       nodeVersion: ${{parameters.nodeVersion}}
