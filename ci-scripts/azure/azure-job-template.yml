@@ -10,7 +10,7 @@ jobs:
     vmImage: ${{ parameters.vmImage }}
   steps:
   - task: NodeTool@0
-	inputs:
+	  inputs:
       versionSpec: ${{ parameters.nodeVersion }}
 - job: 'InstallDepsJob'
   displayName: 'Dependencies Installation'
