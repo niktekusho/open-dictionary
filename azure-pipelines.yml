@@ -7,7 +7,7 @@ jobs:
 - template: ci-scripts/azure/azure-job-template.yml  # Template reference
   parameters:
     name: 'Node 8 LTS on Linux'
-	vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-16.04'
     nodeVersion: '8.x'
 - template: ci-scripts/azure/azure-job-template.yml  # Template reference
   parameters:
