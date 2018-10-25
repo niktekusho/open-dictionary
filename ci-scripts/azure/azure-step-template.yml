@@ -1,0 +1,17 @@
+parameters:
+  name: ''  # defaults for any parameters that aren't specified
+  nodeVersion: ''
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: ${{ parameters.nodeVersion }}
+- script: yarn install
+  name: InstallDepsStep
+  displayName: 'Dependencies Installation'
+- script: yarn lint
+  name: Linting
+  displayName: ${{ format('Linting on {0}', parameters.name) }}
+- script: yarn unit
+  name: UnitTesting
+  displayName: ${{ format('Unit Testing on {0}', parameters.name) }}

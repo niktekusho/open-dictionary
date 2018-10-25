@@ -1,0 +1,19 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+jobs:
+- template: ci-scripts/azure/azure-job-template.yml  # Template reference
+  parameters:
+    name: 'node8_linux'
+    displayName: 'Node 8 LTS on Linux'
+    vmImage: 'ubuntu-16.04'
+    nodeVersion: '8.x'
+- template: ci-scripts/azure/azure-job-template.yml  # Template reference
+  parameters:
+    name: 'node8_windows'
+    displayName: 'Node 8 LTS on Windows'
+    vmImage: 'vs2017-win2016'
+    nodeVersion: '8.x'
+
