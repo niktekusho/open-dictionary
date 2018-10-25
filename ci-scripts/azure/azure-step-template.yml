@@ -9,7 +9,9 @@ steps:
 - script: yarn install
   name: InstallDepsStep
   displayName: 'Dependencies Installation'
-- script: yarn test
-  name: Test
-  displayName: ${{ format('Test on {0}', parameters.name) }}
-
+- script: yarn lint
+  name: Linting
+  displayName: ${{ format('Linting on {0}', parameters.name) }}
+- script: yarn unit
+  name: UnitTesting
+  displayName: ${{ format('Unit Testing on {0}', parameters.name) }}
